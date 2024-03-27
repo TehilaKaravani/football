@@ -1,49 +1,67 @@
 import {useEffect, useState} from 'react'
 import './App.css'
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import SuperAdmin from "./superAdmin.jsx";
+import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
+
 import LoginPage from "./LoginPage.jsx";
-import DashboardPage from "./DashboardPage.jsx";
 import SignUp from "./SignUp.jsx";
+import HomePage from "./HomePage.jsx";
+import PageNotFound from "./PageNotFound.jsx";
 import Cookies from "universal-cookie";
+import ScoreTable from "./ScoreTable.jsx";
+import axios from "axios";
 
 function App() {
-    const [haveAccount, setHaveAccount] = useState(true);
-
+    const [isUserConnected, setUserConnection] = useState(false);
+    
     useEffect(() => {
+        const cookies = new Cookies();
+        const secret = cookies.get('secret');
+        if (secret !== undefined) {
+            axios.get("http://localhost:9124/get-user-by-secret?secret=" + secret)
+                .then((res)=> {
+                    if (res.data.success === true) {
+                        setUserConnection(true);
+                    }
+                })
+        }
     }, []);
 
 
-    const cookies = new Cookies(null, {path: '/'})
-    const secret = cookies.get('secret');
-    console.log(secret)
-
+    const removeSecret = ()=> {
+        const cookies = new Cookies(); // לא צריך למסור פרמטר כאן
+        cookies.remove('secret'); // מסירת הקובץ cookie בשם 'secret'
+        setUserConnection(false);
+    }
 
     return (
-        <div>
-            {
-                secret ?
-                    <div>LOGGED IN</div>
-                    :
-                    <div>
-                        {
-                            haveAccount?
-                                <LoginPage setHaveAccount={setHaveAccount}/>
-                                :
-                                <SignUp setHaveAccount={setHaveAccount}/>
-                        }
+        <div className="App">
+                <BrowserRouter>
+                    <NavLink  activeClassName={"active"} className={"main-link"} to={"/"} >Home</NavLink>
+                    {
+                        !isUserConnected  &&
+                            <>
+                                <NavLink activeClassName={"active"} className={"main-link"}  to={"/login"}>Login</NavLink>
+                                <NavLink activeClassName={"active"} className={"main-link"}  to={"/sign-up"}>Sign up</NavLink>
+                            </>
 
-                    </div>
+                    }
+                    <NavLink activeClassName={"active"} className={"main-link"}  to={"/score-table"}>Score Table</NavLink>
+
+
+
+                    <Routes>
+                        <Route path={"/"} element={<HomePage/>}/>
+                        <Route path={"/login"} element={<LoginPage isUserConnected={isUserConnected} setUserConnection={setUserConnection}/>}/>
+                        <Route path={"/sign-up"} element={<SignUp/>}/>
+                        <Route path={"/score-table"} element={<ScoreTable/>}/>
+                        <Route path={"*"} element={<PageNotFound/>}/>
+                    </Routes>
+                </BrowserRouter>
+            {
+                isUserConnected &&
+                <button onClick={removeSecret} className='logout'>Log Out</button>
             }
 
-            {/*<Router>*/}
-            {/*    <Routes>*/}
-            {/*        <Route path={"/super-admin"} element={<SuperAdmin />}/>*/}
-            {/*        <Route path={"/login"} element={<LoginPage />}/>*/}
-            {/*        <Route path={"/dashboard"} element={<DashboardPage />}/>*/}
-            {/*    </Routes>*/}
-            {/*</Router>*/}
 
         </div>
     );

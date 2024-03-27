@@ -1,13 +1,12 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const LoginPage = ({setHaveAccount}) => {
+const LoginPage = ({isUserConnected,setUserConnection}) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorCode, setErrorCode] = useState(null);
-    const [success, setSuccess] = useState(false);
 
 
     const login = () => {
@@ -21,9 +20,9 @@ const LoginPage = ({setHaveAccount}) => {
             })
             .then(response => {
                 if (response.data.success) {
-                    const cookies = new Cookies(null, {path: '/'})
-                    cookies.set('secret', response.data.secret);
-                    setSuccess(true);
+                    const cookies2 = new Cookies(null, {path: '/'})
+                    cookies2.set('secret', response.data.secret);
+                    setUserConnection(true);
                 } else {
                     setErrorCode(response.data.errorCode)
                 }
@@ -33,7 +32,7 @@ const LoginPage = ({setHaveAccount}) => {
     return (
         <div>
             {
-                success?
+                isUserConnected?
                     <div>
                         <h2>successfully logged in</h2>
                     </div>
@@ -70,9 +69,6 @@ const LoginPage = ({setHaveAccount}) => {
                         </table>
                         <div>
                             {errorCode != null && <div>Error {errorCode}</div>}
-                        </div>
-                        <div>
-                            I don't have an account <button onClick={() => setHaveAccount(false)}>sign up</button>
                         </div>
 
                     </div>

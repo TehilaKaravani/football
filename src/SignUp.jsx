@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {useState} from "react";
 
-function SignUp({setHaveAccount}) {
+function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
@@ -75,9 +75,6 @@ function SignUp({setHaveAccount}) {
                 </table>
                 <div>
                     {errorCode != null && <div>Error {errorCode}</div>}
-                </div>
-                <div>
-                    I have an account <button onClick={() => setHaveAccount(true)}>sign in</button>
                 </div>
             </div>}
 
