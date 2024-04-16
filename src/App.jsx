@@ -12,7 +12,6 @@ import axios from "axios";
 import Profile from "./Profile.jsx";
 
 function App() {
-    const [isUserConnected, setUserConnection] = useState(false);
     const [user, setUser] = useState(null)
     
     useEffect(() => {
@@ -22,7 +21,7 @@ function App() {
             axios.get("http://localhost:9124/get-user-by-secret?secret=" + secret)
                 .then((res)=> {
                     if (res.data.success === true) {
-                        setUserConnection(true);
+                        setUser(res.data.user);
                     }
                 })
         }
@@ -32,7 +31,7 @@ function App() {
     const removeSecret = ()=> {
         const cookies = new Cookies(); // לא צריך למסור פרמטר כאן
         cookies.remove('secret'); // מסירת הקובץ cookie בשם 'secret'
-        setUserConnection(false);
+        setUser(null);
     }
 
     return (
@@ -41,7 +40,7 @@ function App() {
 
                     <NavLink  activeClassName={"active"} className={"main-link"} to={"/"} >Home</NavLink>
                     {
-                        isUserConnected ?
+                         user?
                             <>
                                 <NavLink  activeClassName={"active"} className={"main-link"} to={"/profile"} >Profile</NavLink>
                             </>
@@ -66,7 +65,7 @@ function App() {
                     </Routes>
                 </BrowserRouter>
             {
-                isUserConnected &&
+                user&&
                 <button onClick={removeSecret} className='logout'>Log Out</button>
             }
 
