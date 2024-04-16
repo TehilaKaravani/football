@@ -18,6 +18,7 @@ const DashboardPage = () => {
     return (
         <div>
             <table>
+                <thead>
                 <tr>
                     <th>
                         Team1
@@ -32,26 +33,48 @@ const DashboardPage = () => {
                         Goal2
                     </th>
                 </tr>
-                {/*{*/}
-                {/*    cycle.map((match, index) => {*/}
-                {/*        return (*/}
-                {/*            <tr key={index}>*/}
-                {/*                <td>*/}
-                {/*                    {match.team1.name}*/}
-                {/*                </td>*/}
-                {/*                <td>*/}
-                {/*                    {match.team2.name}*/}
-                {/*                </td>*/}
-                {/*                <td>*/}
-                {/*                    {match.goals_T1}*/}
-                {/*                </td>*/}
-                {/*                <td>*/}
-                {/*                    {match.goals_T2}*/}
-                {/*                </td>*/}
-                {/*            </tr>*/}
-                {/*        )*/}
-                {/*    })*/}
-                {/*}*/}
+                </thead>
+                <tbody>
+                {
+                    cycle.map((match, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>
+                                    {match.team1.name}
+                                </td>
+                                <td>
+                                    {match.team2.name}
+                                </td>
+                                <td>
+                                    {match.goals_T1}
+                                </td>
+                                <td>
+                                    {match.goals_T2}
+                                </td>
+                            </tr>
+                        )
+                    })
+                }{
+                    cycle.map((match, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>
+                                    {match.team1.name}
+                                </td>
+                                <td>
+                                    {match.team2.name}
+                                </td>
+                                <td>
+                                    {match.goals_T1}
+                                </td>
+                                <td>
+                                    {match.goals_T2}
+                                </td>
+                            </tr>
+                        )
+                    })
+                }
+                </tbody>
             </table>
             {cycle}
         </div>
