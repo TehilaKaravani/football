@@ -4,6 +4,7 @@ import {useState} from "react";
 
 function SignUp() {
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [errorCode, setErrorCode] = useState(null);
@@ -11,10 +12,12 @@ function SignUp() {
 
 
     const signUp = () => {
+        // check email and strong password
         axios.get("http://localhost:9124/sign-up",
             {
                 params: {
                     username: username,
+                    email: email,
                     password: password,
                     password2: password2
                 }
@@ -22,7 +25,9 @@ function SignUp() {
             .then(response => {
                 setSuccess(response.data.success)
                 setErrorCode(response.data.errorCode)
-            })
+            }).catch(()=>{
+            setErrorCode(9)
+        })
     }
 
     return (
@@ -49,6 +54,17 @@ function SignUp() {
                     </tr>
                     <tr>
                         <td>
+                            email:
+                        </td>
+
+                        <td>
+                            <input value={email} onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             password:
                         </td>
                         <td>
@@ -69,7 +85,7 @@ function SignUp() {
                     </tr>
                     <tr>
                         <td>
-                            <button onClick={signUp} disabled={username.length === 0 || password.length === 0 || password !== password2}>sign up</button>
+                            <button onClick={signUp} disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2}>sign up</button>
                         </td>
                     </tr>
                 </table>

@@ -2,10 +2,10 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const LoginPage = ({isUserConnected,setUserConnection}) => {
+const LoginPage = ({user,setUser}) => {
 
-    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [errorCode, setErrorCode] = useState(null);
 
 
@@ -14,25 +14,30 @@ const LoginPage = ({isUserConnected,setUserConnection}) => {
         axios.get("http://localhost:9124/login",
             {
                 params: {
-                    username: username,
+                    email: email,
                     password: password
                 }
             })
             .then(response => {
                 if (response.data.success) {
                     const cookies2 = new Cookies(null, {path: '/'})
-                    cookies2.set('secret', response.data.secret);
-                    setUserConnection(true);
+                    cookies2.set('secret', response.data.user.secret);
+
+
+                    setUser(response.data.user);
+
                 } else {
                     setErrorCode(response.data.errorCode)
                 }
-            })
+            }).catch(()=>{
+            setErrorCode(9)
+        })
     }
 
     return (
         <div>
             {
-                isUserConnected?
+                user?
                     <div>
                         <h2>successfully logged in</h2>
                     </div>
@@ -41,16 +46,17 @@ const LoginPage = ({isUserConnected,setUserConnection}) => {
                         <h2>Sign in</h2>
                         <table>
                             <tr>
-                                <td>
-                                    username:
-                                </td>
+                            <td>
+                                email:
+                            </td>
 
-                                <td>
-                                    <input value={username} onChange={(e) => {
-                                        setUsername(e.target.value)
-                                    }}/>
-                                </td>
-                            </tr>
+                            <td>
+                                <input value={email} onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}/>
+                            </td>
+                        </tr>
+
                             <tr>
                                 <td>
                                     password:
@@ -63,7 +69,7 @@ const LoginPage = ({isUserConnected,setUserConnection}) => {
                             </tr>
                             <tr>
                                 <td>
-                                    <button onClick={login} disabled={username <= 0 || password <= 0}>Login</button>
+                                    <button onClick={login} disabled={password.length === 0 || email.length === 0}>Login</button>
                                 </td>
                             </tr>
                         </table>

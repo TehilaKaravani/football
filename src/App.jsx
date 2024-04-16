@@ -9,9 +9,11 @@ import PageNotFound from "./PageNotFound.jsx";
 import Cookies from "universal-cookie";
 import ScoreTable from "./ScoreTable.jsx";
 import axios from "axios";
+import Profile from "./Profile.jsx";
 
 function App() {
     const [isUserConnected, setUserConnection] = useState(false);
+    const [user, setUser] = useState(null)
     
     useEffect(() => {
         const cookies = new Cookies();
@@ -36,9 +38,14 @@ function App() {
     return (
         <div className="App">
                 <BrowserRouter>
+
                     <NavLink  activeClassName={"active"} className={"main-link"} to={"/"} >Home</NavLink>
                     {
-                        !isUserConnected  &&
+                        isUserConnected ?
+                            <>
+                                <NavLink  activeClassName={"active"} className={"main-link"} to={"/profile"} >Profile</NavLink>
+                            </>
+                            :
                             <>
                                 <NavLink activeClassName={"active"} className={"main-link"}  to={"/login"}>Login</NavLink>
                                 <NavLink activeClassName={"active"} className={"main-link"}  to={"/sign-up"}>Sign up</NavLink>
@@ -51,9 +58,10 @@ function App() {
 
                     <Routes>
                         <Route path={"/"} element={<HomePage/>}/>
-                        <Route path={"/login"} element={<LoginPage isUserConnected={isUserConnected} setUserConnection={setUserConnection}/>}/>
+                        <Route path={"/login"} element={<LoginPage user={user} setUser={setUser}/>}/>
                         <Route path={"/sign-up"} element={<SignUp/>}/>
                         <Route path={"/score-table"} element={<ScoreTable/>}/>
+                        <Route path={"/profile"} element={<Profile user={user} setUser={setUser}/>}/>
                         <Route path={"*"} element={<PageNotFound/>}/>
                     </Routes>
                 </BrowserRouter>
