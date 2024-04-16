@@ -10,6 +10,7 @@ import Cookies from "universal-cookie";
 import ScoreTable from "./ScoreTable.jsx";
 import axios from "axios";
 import Profile from "./Profile.jsx";
+import DashboardPage from "./DashboardPage.jsx";
 
 function App() {
     const [user, setUser] = useState(null)
@@ -52,15 +53,16 @@ function App() {
 
                     }
                     <NavLink activeClassName={"active"} className={"main-link"}  to={"/score-table"}>Score Table</NavLink>
-
+                    <NavLink activeClassName={"active"} className={"main-link"}  to={"/dashboard-page"}>Dashboard Page</NavLink>
 
 
                     <Routes>
                         <Route path={"/"} element={<HomePage/>}/>
                         <Route path={"/login"} element={<LoginPage user={user} setUser={setUser}/>}/>
                         <Route path={"/sign-up"} element={<SignUp/>}/>
-                        <Route path={"/score-table"} element={<ScoreTable/>}/>
                         <Route path={"/profile"} element={<Profile user={user} setUser={setUser}/>}/>
+                        <Route path={"/score-table"} element={<ScoreTable/>}/>
+                        <Route path={"/dashboard-page"} element={<DashboardPage/>}/>
                         <Route path={"*"} element={<PageNotFound/>}/>
                     </Routes>
                 </BrowserRouter>

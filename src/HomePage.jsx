@@ -21,7 +21,6 @@ function HomePage() {
         <div>
             Home
             <div>{data}</div>
-
         </div>
     );
 }
