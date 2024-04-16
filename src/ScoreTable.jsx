@@ -3,6 +3,7 @@ import axios from "axios";
 
 function ScoreTable() {
     const [score, setScore] = useState([])
+    const [matches, setMatches] = useState([])
 
 
     useEffect(() => {
@@ -13,6 +14,9 @@ function ScoreTable() {
     const fetchData = () => {
         axios.get("http://localhost:9124/get-score").then((res) => {
             setScore(res.data)
+        })
+        axios.get("http://localhost:9124/get-matches").then((res) => {
+            setMatches(res.data)
         })
     }
 
@@ -42,6 +46,40 @@ function ScoreTable() {
                 )
             })}
 
+            <tr>
+                <th>
+                    team1
+                </th>
+                <th>
+                    team2
+                </th>
+                <th>
+                    goals1
+                </th>
+                <th>
+                    goals2
+                </th>
+            </tr>
+
+            {matches.map((match, index) => {
+                return (
+                    <tr key={index}>
+                        <td>
+                            {match.team1.name}
+                        </td>
+                        <td>
+                            {match.team2.name}
+                        </td>
+                        <td>
+                            {match.goals_T1}
+                        </td>
+                        <td>
+                            {match.goals_T2}
+                        </td>
+                    </tr>
+
+                )
+            })}
 
         </div>
     );
