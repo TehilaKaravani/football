@@ -46,40 +46,47 @@ function ScoreTable() {
                 )
             })}
 
-            <tr>
-                <th>
-                    team1
-                </th>
-                <th>
-                    team2
-                </th>
-                <th>
-                    goals1
-                </th>
-                <th>
-                    goals2
-                </th>
-            </tr>
-
-            {matches.map((match, index) => {
-                return (
-                    <tr key={index}>
-                        <td>
-                            {match.team1.name}
-                        </td>
-                        <td>
-                            {match.team2.name}
-                        </td>
-                        <td>
-                            {match.goals_T1}
-                        </td>
-                        <td>
-                            {match.goals_T2}
-                        </td>
+            {matches&&
+                <div>
+                    <tr>
+                        <th>
+                            team1
+                        </th>
+                        <th>
+                            team2
+                        </th>
+                        <th>
+                            goals1
+                        </th>
+                        <th>
+                            goals2
+                        </th>
                     </tr>
+                    {matches.map((match, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>
+                                    {match.team1.name}
+                                </td>
+                                <td>
+                                    {match.team2.name}
+                                </td>
+                                <td>
+                                    {match.goals_T1}
+                                </td>
+                                <td>
+                                    {match.goals_T2}
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </div>
 
-                )
-            })}
+            }
+
+
+
+
 
         </div>
     );
