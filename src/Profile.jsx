@@ -8,8 +8,6 @@ function Profile({user, setUser}) {
     const [newPassword, setNewPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [isToChangePass, setIsToChangePass] = useState(false);
-    // const [errorCode, setErrorCode] = useState(null);
-    // const [success, setSuccess] = useState(false);
 
     const checkEmail = () => {
         if ((email !== user.email) &&
@@ -107,7 +105,7 @@ function Profile({user, setUser}) {
     }
 
     return (
-        <div>
+        <div className='container'>
             <h2>Profile</h2>
             <div>
                 Your username: {
@@ -115,7 +113,7 @@ function Profile({user, setUser}) {
                     setUsername(event.target.value)
                 }}/>
             }
-                <button disabled={(username === user.username)} onClick={updateUsername}>save</button>
+                <button className='btn' disabled={(username === user.username)} onClick={updateUsername}>save</button>
             </div>
             <div>
                 Your email: {
@@ -123,7 +121,7 @@ function Profile({user, setUser}) {
                     setEmail(event.target.value)
                 }}/>
             }
-                <button disabled={!checkEmail()} onClick={updateEmail}>save</button>
+                <button className='btn' disabled={!checkEmail()} onClick={updateEmail}>save</button>
             </div>
             {
                 isToChangePass ?
@@ -146,12 +144,12 @@ function Profile({user, setUser}) {
                                 setRepeatPassword(event.target.value)
                             }}/>
                         </div>
-                        <button disabled={!checkPassword()} onClick={updatePassword}>SAVE</button>
-                        <button onClick={resetChangePassword}>CANCEL</button>
+                        <button className='btn' disabled={!checkPassword()} onClick={updatePassword}>SAVE</button>
+                        <button className='btn' onClick={resetChangePassword}>CANCEL</button>
                     </div>
                     :
                     <div>
-                        <button onClick={() => {
+                        <button className='btn' onClick={() => {
                             setIsToChangePass(true)
                         }}>Change Password
                         </button>

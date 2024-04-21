@@ -1,16 +1,15 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const LoginPage = ({user,setUser}) => {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [errorCode, setErrorCode] = useState(null);
-
 
     const login = () => {
-        setErrorCode(null);
         axios.get("http://localhost:9124/login",
             {
                 params: {
@@ -22,40 +21,40 @@ const LoginPage = ({user,setUser}) => {
                 if (response.data.success) {
                     const cookies2 = new Cookies(null, {path: '/'})
                     cookies2.set('secret', response.data.user.secret);
-
-
                     setUser(response.data.user);
-
+                    toast.success('Login Success');
                 } else {
                     setErrorCode(response.data.errorCode)
+                    toast.error("Error " + response.data.errorCode);
                 }
             }).catch(()=>{
-            setErrorCode(9)
+            toast.error("Error 9");
         })
     }
 
     return (
-        <div>
+        <main>
+            <div>
             {
                 user?
                     <div>
                         <h2>successfully logged in</h2>
                     </div>
                     :
-                    <div>
+                    <div className="container">
                         <h2>Sign in</h2>
                         <table>
                             <tr>
-                            <td>
-                                email:
-                            </td>
+                                <td>
+                                    email:
+                                </td>
 
-                            <td>
-                                <input value={email} onChange={(e) => {
-                                    setEmail(e.target.value)
-                                }}/>
-                            </td>
-                        </tr>
+                                <td>
+                                    <input value={email} onChange={(e) => {
+                                        setEmail(e.target.value)
+                                    }}/>
+                                </td>
+                            </tr>
 
                             <tr>
                                 <td>
@@ -69,18 +68,18 @@ const LoginPage = ({user,setUser}) => {
                             </tr>
                             <tr>
                                 <td>
-                                    <button onClick={login} disabled={password.length === 0 || email.length === 0}>Login</button>
+                                    <button className='btn' onClick={login} disabled={password.length === 0 || email.length === 0}>Login</button>
                                 </td>
                             </tr>
                         </table>
-                        <div>
-                            {errorCode != null && <div>Error {errorCode}</div>}
-                        </div>
-
                     </div>
             }
-
         </div>
+
+
+            <ToastContainer position='top-center' />
+        </main>
+
     )
 }
 
