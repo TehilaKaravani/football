@@ -1,7 +1,6 @@
 import axios from "axios";
 import {useState} from "react";
-import { ToastContainer, toast } from 'react-toastify';
-
+import {ToastContainer, toast} from 'react-toastify';
 
 
 function SignUp() {
@@ -27,10 +26,10 @@ function SignUp() {
                 setSuccess(response.data.success)
                 if (response.data.success) {
                     toast.success("Sign up successful")
-                }else {
+                } else {
                     toast.error("Error " + response.data.errorCode)
                 }
-            }).catch(()=>{
+            }).catch(() => {
             toast.error("error 9")
         })
     }
@@ -45,60 +44,59 @@ function SignUp() {
                     :
                     <div className="container">
                         <h2>Sign up</h2>
-                        <table>
-                            <tr>
-                                <td>
-                                    username:
-                                </td>
+                        <div  className='form-section'>
+                            <div>
+                                username:
+                            </div>
 
-                                <td>
-                                    <input value={username} onChange={(e) => {
-                                        setUsername(e.target.value)
-                                    }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    email:
-                                </td>
+                            <input className='form-input' value={username} onChange={(e) => {
+                                setUsername(e.target.value)
+                            }}/>
 
-                                <td>
-                                    <input value={email} onChange={(e) => {
-                                        setEmail(e.target.value)
-                                    }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    password:
-                                </td>
-                                <td>
-                                    <input type='password' value={password} onChange={(e) => {
-                                        setPassword(e.target.value)
-                                    }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    repeat password:
-                                </td>
-                                <td>
-                                    <input type='password' value={password2} onChange={(e) => {
-                                        setPassword2(e.target.value)
-                                    }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button className='btn' onClick={signUp} disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2}>sign up</button>
-                                </td>
-                            </tr>
-                        </table>
+                        </div>
+                        <div className='form-section'>
+                            <div>
+                                email:
+                            </div>
+
+                            <div>
+                                <input className='form-input' value={email} onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}/>
+                            </div>
+                        </div>
+                        <div className='form-section'>
+                            <div>
+                                password:
+                            </div>
+                            <div>
+                                <input className='form-input' type='password' value={password} onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}/>
+                            </div>
+                        </div>
+                        <div className='form-section'>
+                            <div>
+                                repeat password:
+                            </div>
+                            <div>
+                                <input className='form-input' type='password' value={password2} onChange={(e) => {
+                                    setPassword2(e.target.value)
+                                }}/>
+                            </div>
+                        </div>
+
+                        <button className='btn' onClick={signUp}
+                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2}>sign
+                            up
+                        </button>
+
+
                     </div>}
 
 
             </div>
-            <ToastContainer position='top-center' />
+            <ToastContainer position='top-center'/>
         </main>
 
     );

@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 
 
-const LoginPage = ({user,setUser}) => {
+const LoginPage = ({user, setUser}) => {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ const LoginPage = ({user,setUser}) => {
                     setErrorCode(response.data.errorCode)
                     toast.error("Error " + response.data.errorCode);
                 }
-            }).catch(()=>{
+            }).catch(() => {
             toast.error("Error 9");
         })
     }
@@ -35,49 +35,47 @@ const LoginPage = ({user,setUser}) => {
     return (
         <main>
             <div>
-            {
-                user?
-                    <div>
-                        <h2>successfully logged in</h2>
-                    </div>
-                    :
-                    <div className="container">
-                        <h2>Sign in</h2>
-                        <table>
-                            <tr>
-                                <td>
+                {
+                    user ?
+                        <div className='container'>
+                            <h2>successfully logged in</h2>
+                        </div>
+                        :
+                        <div className="container">
+                            <h2>Sign in</h2>
+                            <div className='form-section'>
+                                <div>
                                     email:
-                                </td>
+                                </div>
 
-                                <td>
-                                    <input value={email} onChange={(e) => {
+                                <div>
+                                    <input className='form-input' value={email} onChange={(e) => {
                                         setEmail(e.target.value)
                                     }}/>
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
 
-                            <tr>
-                                <td>
+                            <div className='form-section'>
+                                <div>
                                     password:
-                                </td>
-                                <td>
-                                    <input type='password' value={password} onChange={(e) => {
+                                </div>
+                                <div>
+                                    <input className='form-input' type='password' value={password} onChange={(e) => {
                                         setPassword(e.target.value)
                                     }}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button className='btn' onClick={login} disabled={password.length === 0 || email.length === 0}>Login</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-            }
-        </div>
+                                </div>
+                            </div>
+
+                            <button className='btn' onClick={login}
+                                    disabled={password.length === 0 || email.length === 0}>Login
+                            </button>
+
+                        </div>
+                }
+            </div>
 
 
-            <ToastContainer position='top-center' />
+            <ToastContainer position='top-center'/>
         </main>
 
     )

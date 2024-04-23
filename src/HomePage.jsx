@@ -20,7 +20,7 @@ function HomePage() {
 
 
     return (
-        <div>
+        <div className='container'>
             Home
             {/*<div>{data}</div>*/}
         </div>

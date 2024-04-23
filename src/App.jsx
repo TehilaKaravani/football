@@ -53,24 +53,27 @@ function App() {
             <div className="App">
                 <BrowserRouter>
 
-                    <NavLink activeClassName={"active"} className={"main-link"} to={"/"}>Home</NavLink>
-                    {
-                        user ?
-                            <>
-                                <NavLink activeClassName={"active"} className={"main-link"}
-                                         to={"/profile"}>Profile</NavLink>
-                            </>
-                            :
-                            <>
-                                <NavLink activeClassName={"active"} className={"main-link"} to={"/login"}>Login</NavLink>
-                                <NavLink activeClassName={"active"} className={"main-link"} to={"/sign-up"}>Sign
-                                    up</NavLink>
-                            </>
+                    <div className='links'>
+                        <NavLink activeClassName={"active"} className={"main-link"} to={"/"}>Home</NavLink>
+                        {
+                            user ?
+                                <>
+                                    <NavLink activeClassName={"active"} className={"main-link"}
+                                             to={"/profile"}>Profile</NavLink>
+                                </>
+                                :
+                                <>
+                                    <NavLink activeClassName={"active"} className={"main-link"} to={"/login"}>Login</NavLink>
+                                    <NavLink activeClassName={"active"} className={"main-link"} to={"/sign-up"}>Sign
+                                        up</NavLink>
+                                </>
 
-                    }
-                    <NavLink activeClassName={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
-                    <NavLink activeClassName={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
-                        Page</NavLink>
+                        }
+                        <NavLink activeClassName={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
+                        <NavLink activeClassName={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
+                            Page</NavLink>
+                    </div>
+
 
 
                     <Routes>

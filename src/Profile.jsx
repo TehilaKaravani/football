@@ -107,17 +107,17 @@ function Profile({user, setUser}) {
     return (
         <div className='container'>
             <h2>Profile</h2>
-            <div>
+            <div className='form-section'>
                 Your username: {
-                <input value={username} placeholder={user.username} onChange={(event) => {
+                <input className='form-input' value={username} placeholder={user.username} onChange={(event) => {
                     setUsername(event.target.value)
                 }}/>
             }
                 <button className='btn' disabled={(username === user.username)} onClick={updateUsername}>save</button>
             </div>
-            <div>
+            <div className='form-section'>
                 Your email: {
-                <input value={email} placeholder={user.email} onChange={(event) => {
+                <input className='form-input' value={email} placeholder={user.email} onChange={(event) => {
                     setEmail(event.target.value)
                 }}/>
             }
@@ -128,19 +128,19 @@ function Profile({user, setUser}) {
                     <div>
                         <div>
                             Current password:
-                            <input value={currentPassword} onChange={(event) => {
+                            <input className='form-input' value={currentPassword} onChange={(event) => {
                                 setCurrentPassword(event.target.value)
                             }}/>
                         </div>
-                        <div>
+                        <div >
                             New password:
-                            <input value={newPassword} onChange={(event) => {
+                            <input className='form-input' value={newPassword} onChange={(event) => {
                                 setNewPassword(event.target.value)
                             }}/>
                         </div>
-                        <div>
+                        <div className='form-section'>
                             Repeat password:
-                            <input value={repeatPassword} onChange={(event) => {
+                            <input className='form-input' value={repeatPassword} onChange={(event) => {
                                 setRepeatPassword(event.target.value)
                             }}/>
                         </div>
