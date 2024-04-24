@@ -5,15 +5,15 @@ const DashboardPage = () => {
     const [cycle, setCycle] = useState([]);
 
     useEffect(() => {
-        const eventSource = new EventSource("http://localhost:9124/start-streaming"); // התחברות לנתיב שבו מופעל ה־SSE
+        const eventSource = new EventSource("http://localhost:9124/start-streaming");
 
         eventSource.onmessage = event => {
             const data = JSON.parse(event.data);
-            setCycle(data); // עדכון המצב עם המערך של המשחקים שנשלח מהשרת
+            setCycle(data);
         };
 
         return () => {
-            eventSource.close(); // סגירת החיבור כאשר הרכיב מוסר
+            eventSource.close();
         };
     }, []);
 
