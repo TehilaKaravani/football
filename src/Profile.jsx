@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import axios from "axios";
 
 function Profile({user, setUser}) {
-    const [username, setUsername] = useState(user.username);
-    const [email, setEmail] = useState(user.email);
+    const [username, setUsername] = useState(user?(user.username):"");
+    const [email, setEmail] = useState(user?(user.email):"");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -105,59 +105,60 @@ function Profile({user, setUser}) {
     }
 
     return (
-        <div className='container'>
-            <h2>Profile</h2>
-            <div className='form-section'>
-                Your username: {
-                <input className='form-input' value={username} placeholder={user.username} onChange={(event) => {
-                    setUsername(event.target.value)
-                }}/>
-            }
-                <button className='btn' disabled={(username === user.username)} onClick={updateUsername}>save</button>
-            </div>
-            <div className='form-section'>
-                Your email: {
-                <input className='form-input' value={email} placeholder={user.email} onChange={(event) => {
-                    setEmail(event.target.value)
-                }}/>
-            }
-                <button className='btn' disabled={!checkEmail()} onClick={updateEmail}>save</button>
-            </div>
-            {
-                isToChangePass ?
-                    <div>
-                        <div>
-                            Current password:
-                            <input className='form-input' value={currentPassword} onChange={(event) => {
-                                setCurrentPassword(event.target.value)
-                            }}/>
-                        </div>
-                        <div >
-                            New password:
-                            <input className='form-input' value={newPassword} onChange={(event) => {
-                                setNewPassword(event.target.value)
-                            }}/>
-                        </div>
-                        <div className='form-section'>
-                            Repeat password:
-                            <input className='form-input' value={repeatPassword} onChange={(event) => {
-                                setRepeatPassword(event.target.value)
-                            }}/>
-                        </div>
-                        <button className='btn' disabled={!checkPassword()} onClick={updatePassword}>SAVE</button>
-                        <button className='btn' onClick={resetChangePassword}>CANCEL</button>
+        <div>
+            {user &&
+                <div className='container'>
+                    <h2>Profile</h2>
+                    <div className='form-section'>
+                        Your username: {
+                        <input className='form-input' value={username} placeholder={user.username} onChange={(event) => {
+                            setUsername(event.target.value)
+                        }}/>
+                    }
+                        <button className='btn' disabled={(username === user.username)} onClick={updateUsername}>save</button>
                     </div>
-                    :
-                    <div>
-                        <button className='btn' onClick={() => {
-                            setIsToChangePass(true)
-                        }}>Change Password
-                        </button>
+                    <div className='form-section'>
+                        Your email: {
+                        <input className='form-input' value={email} placeholder={user.email} onChange={(event) => {
+                            setEmail(event.target.value)
+                        }}/>
+                    }
+                        <button className='btn' disabled={!checkEmail()} onClick={updateEmail}>save</button>
                     </div>
+                    {
+                        isToChangePass ?
+                            <div>
+                                <div>
+                                    Current password:
+                                    <input className='form-input' value={currentPassword} onChange={(event) => {
+                                        setCurrentPassword(event.target.value)
+                                    }}/>
+                                </div>
+                                <div >
+                                    New password:
+                                    <input className='form-input' value={newPassword} onChange={(event) => {
+                                        setNewPassword(event.target.value)
+                                    }}/>
+                                </div>
+                                <div className='form-section'>
+                                    Repeat password:
+                                    <input className='form-input' value={repeatPassword} onChange={(event) => {
+                                        setRepeatPassword(event.target.value)
+                                    }}/>
+                                </div>
+                                <button className='btn' disabled={!checkPassword()} onClick={updatePassword}>SAVE</button>
+                                <button className='btn' onClick={resetChangePassword}>CANCEL</button>
+                            </div>
+                            :
+                            <div>
+                                <button className='btn' onClick={() => {
+                                    setIsToChangePass(true)
+                                }}>Change Password
+                                </button>
+                            </div>
+                    }
+                </div>
             }
-            {/*<div>{user.username}</div>*/}
-            {/*<div>{user.email}</div>*/}
-            {/*<div>{user.password}</div>*/}
         </div>
     );
 }

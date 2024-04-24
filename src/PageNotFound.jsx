@@ -1,8 +1,8 @@
 function PageNotFound(){
     return(
-        <div>
+        <h2 className='container'>
             page not exists
-        </div>
+        </h2>
     )
 }
 export default PageNotFound;

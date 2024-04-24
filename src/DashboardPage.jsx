@@ -16,7 +16,7 @@ const DashboardPage = () => {
 
 
     return (
-        <div>
+        <div className='container'>
             <table>
                 <thead>
                 <tr>
