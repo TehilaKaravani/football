@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 const DashboardPage = () => {
-    const [cycle, setCycle] = useState(null);
+    const [cycle, setCycle] = useState([]);
+
 
     useEffect(() => {
         const event = new EventSource("http://localhost:9124/start-streaming");
@@ -11,12 +12,21 @@ const DashboardPage = () => {
         };
 
         event.onmessage = function (messages) {
-            setCycle(messages.data);
-        }    }, []);
+            // const newData = JSON.parse(messages.data);
+            // setCycle(prevData => [...prevData, newData]);
+            setCycle(messages.data)
+        }
+    }, []);
+
+    // useEffect(() => {
+    //     console.log(cycle);
+    // }, [cycle]);
 
 
     return (
         <div className='container'>
+
+
             <table>
                 <thead>
                 <tr>
@@ -34,6 +44,15 @@ const DashboardPage = () => {
                     </th>
                 </tr>
                 </thead>
+
+
+                {/*{cycle.map((item, index) => (*/}
+                {/*    <div key={index}>*/}
+                {/*        <p>{item}</p>*/}
+                {/*    </div>*/}
+                {/*))}*/}
+
+
                 {/*<tbody>*/}
                 {/*{*/}
                 {/*    cycle.map((match, index) => {*/}
