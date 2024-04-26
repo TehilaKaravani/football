@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
+import PropTypes from 'prop-types';
 
 
 function Profile({user, setUser}) {
@@ -13,11 +14,9 @@ function Profile({user, setUser}) {
 
 
     const checkEmail = () => {
-        if ((email !== user.email) &&
-            (email.includes('@') && email.includes('.') && (email.indexOf('@') > 0) && (email.lastIndexOf('.') - email.indexOf('@') > 1))){
-            return true;
-        }
-        return false;
+        return (email !== user.email) &&
+            (email.includes('@') && email.includes('.') && (email.indexOf('@') > 0) && (email.lastIndexOf('.') - email.indexOf('@') > 1));
+
     }
 
     const checkUsername = () => {
@@ -25,10 +24,8 @@ function Profile({user, setUser}) {
     }
 
     const checkPassword = () => {
-        if ((newPassword.length >= 8) && (newPassword === repeatPassword) && (currentPassword !== newPassword)) {
-            return true;
-        }
-        return false;
+        return (newPassword.length >= 8) && (newPassword === repeatPassword) && (currentPassword !== newPassword);
+
     }
 
     const updateEmail = () => {
@@ -172,5 +169,12 @@ function Profile({user, setUser}) {
         </main>
     );
 }
+
+
+Profile.propTypes = {
+    user: PropTypes.object.isRequired,
+    setUser: PropTypes.func.isRequired
+};
+
 
 export default Profile;
