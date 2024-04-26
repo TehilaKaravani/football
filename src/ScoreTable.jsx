@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 function ScoreTable() {
@@ -23,6 +23,7 @@ function ScoreTable() {
 
     return (
         <div className={'big-container'}>
+            <h2>Score Table</h2>
             <div className='table1'>
                 <tr>
                     <th>

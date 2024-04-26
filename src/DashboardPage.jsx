@@ -19,7 +19,7 @@ const DashboardPage = () => {
 
     return (
         <div className='container'>
-            <h1>Matches</h1>
+            <h2>Matches</h2>
             <table>
                 <thead>
                 <tr>
@@ -40,6 +40,7 @@ const DashboardPage = () => {
                 ))}
                 </tbody>
             </table>
+            {cycle}
         </div>
     );
 };

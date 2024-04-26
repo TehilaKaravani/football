@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {ToastContainer, toast} from 'react-toastify';
+
 
 function Profile({user, setUser}) {
     const [username, setUsername] = useState(user?(user.username):"");
@@ -9,6 +11,7 @@ function Profile({user, setUser}) {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [isToChangePass, setIsToChangePass] = useState(false);
 
+
     const checkEmail = () => {
         if ((email !== user.email) &&
             (email.includes('@') && email.includes('.') && (email.indexOf('@') > 0) && (email.lastIndexOf('.') - email.indexOf('@') > 1))){
@@ -17,30 +20,16 @@ function Profile({user, setUser}) {
         return false;
     }
 
+    const checkUsername = () => {
+        return (username === user.username);
+    }
+
     const checkPassword = () => {
-        if ((currentPassword === user.password) && (newPassword.length >= 8) && (newPassword === repeatPassword) && (currentPassword !== newPassword)) {
+        if ((newPassword.length >= 8) && (newPassword === repeatPassword) && (currentPassword !== newPassword)) {
             return true;
         }
         return false;
     }
-
-    // const update = (category) => {
-    //     axios.get("http://localhost:9124/change-profile",
-    //         {
-    //             params: {
-    //                 category: category,
-    //                 toChange: [category],
-    //                 secret: user.secret
-    //             }
-    //         })
-    //         .then(response => {
-    //             setUser(response.data);
-    //             // setSuccess(response.data.success)
-    //             // setErrorCode(response.data.errorCode)
-    //         }).catch(()=>{
-    //         // setErrorCode(9)
-    //     })
-    // }
 
     const updateEmail = () => {
         axios.get("http://localhost:9124/change-profile",
@@ -52,11 +41,17 @@ function Profile({user, setUser}) {
                 }
             })
             .then(response => {
-                setUser(response.data);
-                // setSuccess(response.data.success)
-                // setErrorCode(response.data.errorCode)
+                setUser(response.data.user);
+                setUsername(response.data.user.username)
+                setEmail(response.data.user.email)
+
+                if (response.data.success) {
+                    toast.success("The email has changed");
+                }else {
+                    toast.error("Error " + response.data.errorCode);
+                }
             }).catch(()=>{
-            // setErrorCode(9)
+            toast.error("Error 9");
         })
     }
 
@@ -71,30 +66,44 @@ function Profile({user, setUser}) {
             })
             .then(response => {
                 setUser(response.data);
-                // setSuccess(response.data.success)
-                // setErrorCode(response.data.errorCode)
+                setUsername(response.data.user.username)
+                setEmail(response.data.user.email)
+                if (response.data.success) {
+                    toast.success("The username has changed");
+                }else {
+                    toast.error("Error " + response.data.errorCode);
+                }
             }).catch(()=>{
-            // setErrorCode(9)
+                toast.error("Error 9");
         })
     }
 
     const updatePassword = () => {
-        axios.get("http://localhost:9124/change-profile",
-            {
-                params: {
-                    category: "password",
-                    toChange: newPassword,
-                    secret: user.secret
-                }
+        if (currentPassword !== user.password) {
+            axios.get("http://localhost:9124/change-profile",
+                {
+                    params: {
+                        category: "password",
+                        toChange: newPassword,
+                        secret: user.secret
+                    }
+                })
+                .then(response => {
+                    setUser(response.data.user);
+                    setUsername(response.data.user.username)
+                    setEmail(response.data.user.email)
+                    if (response.data.success) {
+                        toast.success("The password has changed");
+                    }else {
+                        toast.error("Error " + response.data.errorCode);
+                    }
+                }).catch(()=>{
+                toast.error("Error 9");
             })
-            .then(response => {
-                setUser(response.data);
-                // setSuccess(response.data.success)
-                // setErrorCode(response.data.errorCode)
-            }).catch(()=>{
-            // setErrorCode(9)
-        })
-        resetChangePassword();
+            resetChangePassword();
+        } else {
+            toast.error("Error 3")
+        }
     }
 
     const resetChangePassword = () => {
@@ -105,7 +114,7 @@ function Profile({user, setUser}) {
     }
 
     return (
-        <div>
+        <main>
             {user &&
                 <div className='container'>
                     <h2>Profile</h2>
@@ -115,7 +124,7 @@ function Profile({user, setUser}) {
                             setUsername(event.target.value)
                         }}/>
                     }
-                        <button className='btn' disabled={(username === user.username)} onClick={updateUsername}>save</button>
+                        <button className='btn' disabled={checkUsername()} onClick={updateUsername}>save</button>
                     </div>
                     <div className='form-section'>
                         Your email: {
@@ -159,7 +168,8 @@ function Profile({user, setUser}) {
                     }
                 </div>
             }
-        </div>
+            <ToastContainer position='top-center'/>
+        </main>
     );
 }
 
