@@ -4,8 +4,8 @@ import {ToastContainer, toast} from 'react-toastify';
 
 
 function Profile({user, setUser}) {
-    const [username, setUsername] = useState(user?(user.username):"");
-    const [email, setEmail] = useState(user?(user.email):"");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -21,7 +21,7 @@ function Profile({user, setUser}) {
     }
 
     const checkUsername = () => {
-        return (username === user.username);
+        return (username === user.username || username === "");
     }
 
     const checkPassword = () => {
