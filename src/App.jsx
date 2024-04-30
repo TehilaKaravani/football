@@ -17,7 +17,7 @@ import DashboardPage from "./DashboardPage.jsx";
 
 function App() {
     const [user, setUser] = useState(null);
-    const [dataFromServer, setDataFromServer] = useState(null)
+    const [dataFromServer, setDataFromServer] = useState(null);
 
     useEffect(() => {
         const cookies = new Cookies();
@@ -30,16 +30,19 @@ function App() {
                     }
                 })
         }
+    }, []);
 
+    useEffect(() => {
+        const eventSource = new EventSource("http://localhost:9124/start-streaming");
 
-        const event = new EventSource("http://localhost:9124/start-streaming");
-        event.onopen = function () {
-            console.log("connection is opened " + event.readyState);
+        eventSource.onmessage = event => {
+            const data = JSON.parse(event.data);
+            setDataFromServer(data);
         };
 
-        event.onmessage = function (messages) {
-            setDataFromServer(messages.data);
-        }
+        return () => {
+            eventSource.close();
+        };
     }, []);
 
 
@@ -54,35 +57,35 @@ function App() {
                 <BrowserRouter>
 
                     <div className='links'>
-                        <NavLink activeClassName={"active"} className={"main-link"} to={"/"}>Home</NavLink>
+                        <NavLink activeclassname={"active"} className={"main-link"} to={"/"}>Home</NavLink>
                         {
                             user ?
                                 <>
-                                    <NavLink activeClassName={"active"} className={"main-link"}
+                                    <NavLink activeclassname={"active"} className={"main-link"}
                                              to={"/profile"}>Profile</NavLink>
                                 </>
                                 :
                                 <>
-                                    <NavLink activeClassName={"active"} className={"main-link"} to={"/login"}>Login</NavLink>
-                                    <NavLink activeClassName={"active"} className={"main-link"} to={"/sign-up"}>Sign
+                                    <NavLink activeclassname={"active"} className={"main-link"} to={"/login"}>Login</NavLink>
+                                    <NavLink activeclassname={"active"} className={"main-link"} to={"/sign-up"}>Sign
                                         up</NavLink>
                                 </>
 
                         }
-                        <NavLink activeClassName={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
-                        <NavLink activeClassName={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
+                        <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
+                        <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
                             Page</NavLink>
                     </div>
 
 
 
                     <Routes>
-                        <Route path={"/"} element={<HomePage data={dataFromServer}/>}/>
+                        <Route path={"/"} element={<HomePage/>}/>
                         <Route path={"/login"} element={<LoginPage user={user} setUser={setUser}/>}/>
                         <Route path={"/sign-up"} element={<SignUp/>}/>
                         <Route path={"/profile"} element={<Profile user={user} setUser={setUser}/>}/>
                         <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
-                        <Route path={"/dashboard-page"} element={<DashboardPage/>}/>
+                        <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
                         <Route path={"*"} element={<PageNotFound/>}/>
                     </Routes>
                 </BrowserRouter>

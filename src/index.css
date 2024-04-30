@@ -43,7 +43,7 @@ main {
 }
 
 
-table, tr, td, th {
+tr, td, th {
     margin: auto;
     text-align: center;
     width: 100px;

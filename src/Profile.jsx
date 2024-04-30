@@ -172,7 +172,7 @@ function Profile({user, setUser}) {
 
 
 Profile.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     setUser: PropTypes.func.isRequired
 };
 

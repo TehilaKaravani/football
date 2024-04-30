@@ -2,7 +2,7 @@ import {useState} from 'react';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
-
+import PropTypes from "prop-types";
 
 const LoginPage = ({user, setUser}) => {
 
@@ -24,7 +24,6 @@ const LoginPage = ({user, setUser}) => {
                     setUser(response.data.user);
                     toast.success('Login Success');
                 } else {
-                    setErrorCode(response.data.errorCode)
                     toast.error("Error " + response.data.errorCode);
                 }
             }).catch(() => {
@@ -80,5 +79,9 @@ const LoginPage = ({user, setUser}) => {
 
     )
 }
+LoginPage.propTypes = {
+    user: PropTypes.object,
+    setUser: PropTypes.func.isRequired
+};
 
 export default LoginPage;

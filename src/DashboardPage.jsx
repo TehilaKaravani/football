@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import PropTypes from "prop-types";
 
-const DashboardPage = () => {
-    const [cycle, setCycle] = useState([]);
+const DashboardPage = ({cycle}) => {
+    const [inLive, setInLive] = useState([]);
+
+    // useEffect(() => {
+    //     const eventSource = new EventSource("http://localhost:9124/start-streaming");
+    //
+    //     eventSource.onmessage = event => {
+    //         const data = JSON.parse(event.data);
+    //         setCycle(data);
+    //     };
+    //
+    //     return () => {
+    //         eventSource.close();
+    //     };
+    // }, []);
 
     useEffect(() => {
-        const eventSource = new EventSource("http://localhost:9124/start-streaming");
-
-        eventSource.onmessage = event => {
-            const data = JSON.parse(event.data);
-            setCycle(data);
-        };
-
-        return () => {
-            eventSource.close();
-        };
-    }, []);
+        const filterData = cycle.filter((game)=>{
+            return game.isLive
+        })
+        setInLive(filterData);
+    }, [cycle]);
 
     return (
         <div className='container'>
@@ -30,19 +37,25 @@ const DashboardPage = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {cycle.map((match, index) => (
-                    <tr key={index}>
-                        <td>{match.team1.name}</td>
-                        <td>{match.team2.name}</td>
-                        <td>{match.goals_T1}</td>
-                        <td>{match.goals_T2}</td>
-                    </tr>
-                ))}
+                {
+                    inLive &&
+                    <>
+                        {inLive.map((match, index) => (
+                            <tr key={index}>
+                                <td>{match.team1.name}</td>
+                                <td>{match.team2.name}</td>
+                                <td>{match.goals_T1}</td>
+                                <td>{match.goals_T2}</td>
+                            </tr>
+                        ))}
+                    </>
+                }
                 </tbody>
             </table>
-            {cycle}
         </div>
     );
 };
-
+DashboardPage.propTypes = {
+    cycle: PropTypes.arrayOf(PropTypes.object),
+};
 export default DashboardPage;
