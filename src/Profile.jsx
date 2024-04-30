@@ -29,7 +29,7 @@ function Profile({user, setUser}) {
     }
 
     const updateEmail = () => {
-        axios.get("http://localhost:9124/change-profile",
+        axios.get("http://localhost:9124/change-username-or-email",
             {
                 params: {
                     category: "email",
@@ -53,7 +53,7 @@ function Profile({user, setUser}) {
     }
 
     const updateUsername = () => {
-        axios.get("http://localhost:9124/change-profile",
+        axios.get("http://localhost:9124/change-username-or-email",
             {
                 params: {
                     category: "username",
@@ -62,7 +62,7 @@ function Profile({user, setUser}) {
                 }
             })
             .then(response => {
-                setUser(response.data);
+                setUser(response.data.user);
                 setUsername(response.data.user.username)
                 setEmail(response.data.user.email)
                 if (response.data.success) {
@@ -76,12 +76,12 @@ function Profile({user, setUser}) {
     }
 
     const updatePassword = () => {
-        if (currentPassword !== user.password) {
-            axios.get("http://localhost:9124/change-profile",
+        if (currentPassword === user.password) {
+            axios.get("http://localhost:9124/change-password",
                 {
                     params: {
-                        category: "password",
                         toChange: newPassword,
+                        currentPassword: currentPassword,
                         secret: user.secret
                     }
                 })
