@@ -88,7 +88,7 @@ function App() {
                         <Route path={"/profile"} element={<Profile user={user} setUser={setUser}/>}/>
                         <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
                         <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
-                        <Route path={"/gambling"} element={<Gambling/>}/>
+                        <Route path={"/gambling"} element={<Gambling data={dataFromServer}/>}/>
                         <Route path={"*"} element={<PageNotFound/>}/>
                     </Routes>
                 </BrowserRouter>
