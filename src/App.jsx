@@ -10,6 +10,7 @@ import ScoreTable from "./ScoreTable.jsx";
 import axios from "axios";
 import Profile from "./Profile.jsx";
 import DashboardPage from "./DashboardPage.jsx";
+import Gambling from "./Gambling.jsx";
 // import { ToastContainer, toast } from 'react-toastify';
 //
 // toast.success('awesome');
@@ -75,6 +76,7 @@ function App() {
                         <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
                         <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
                             Page</NavLink>
+                        <NavLink activeclassname={"active"} className={"main-link"} to={"/gambling"}>Gambling</NavLink>
                     </div>
 
 
@@ -86,6 +88,7 @@ function App() {
                         <Route path={"/profile"} element={<Profile user={user} setUser={setUser}/>}/>
                         <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
                         <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
+                        <Route path={"/gambling"} element={<Gambling/>}/>
                         <Route path={"*"} element={<PageNotFound/>}/>
                     </Routes>
                 </BrowserRouter>

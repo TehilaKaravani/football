@@ -9,7 +9,7 @@ function ScoreTable({data}) {
     useEffect(() => {
         if (data != null) {
             const filterData = data.filter((game) => {
-                return !game.isLive
+                return (game.isLive != null) && (!game.isLive);
             })
             setMatches(filterData);
         }
@@ -112,10 +112,10 @@ function ScoreTable({data}) {
                                 {match.goals_T2}
                             </td>
                             {/*<td>*/}
-                            {/*    {match.team1.skillLevel.skillLevel}*/}
+                            {/*    {match.team1.skillLevel}*/}
                             {/*</td>*/}
                             {/*<td>*/}
-                            {/*    {match.team2.skillLevel.skillLevel}*/}
+                            {/*    {match.team2.skillLevel}*/}
                             {/*</td>*/}
                         </tr>)
                     })}
