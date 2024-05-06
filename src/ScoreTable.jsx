@@ -85,12 +85,6 @@ function ScoreTable({data}) {
                 <th>
                     goals2
                 </th>
-                {/*<th>*/}
-                {/*    skillLevel1*/}
-                {/*</th>*/}
-                {/*<th>*/}
-                {/*    skillLevel2*/}
-                {/*</th>*/}
             </tr>
             </thead>
             <tbody>
@@ -111,12 +105,6 @@ function ScoreTable({data}) {
                             <td>
                                 {match.goals_T2}
                             </td>
-                            {/*<td>*/}
-                            {/*    {match.team1.skillLevel}*/}
-                            {/*</td>*/}
-                            {/*<td>*/}
-                            {/*    {match.team2.skillLevel}*/}
-                            {/*</td>*/}
                         </tr>)
                     })}
                 </>
