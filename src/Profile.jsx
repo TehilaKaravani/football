@@ -1,10 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from 'prop-types';
 
 
-function Profile({user, setUser}) {
+function Profile({userSecret}) {
+    const [user, setUser] = useState(null);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
@@ -13,6 +14,23 @@ function Profile({user, setUser}) {
     const [isToChangePass, setIsToChangePass] = useState(false);
 
 
+    useEffect(() => {
+        axios.get("http://localhost:9124/get-user-by-secret",
+            {
+                params: {
+                    secret: userSecret
+                }
+            })
+            .then(response => {
+                setUser(response.data.user);
+                if (response.data.success) {
+                    setUsername(response.data.user.username);
+                    setEmail(response.data.user.email);
+                }
+            }).catch(()=>{
+            toast.error("Error 9");
+        })
+    }, []);
     const checkEmail = () => {
         return (email !== user.email) &&
             (email.includes('@') && email.includes('.') && (email.indexOf('@') > 0) && (email.lastIndexOf('.') - email.indexOf('@') > 1));
@@ -39,8 +57,8 @@ function Profile({user, setUser}) {
             })
             .then(response => {
                 setUser(response.data.user);
-                setUsername(response.data.user.username)
-                setEmail(response.data.user.email)
+                setUsername(response.data.user.username);
+                setEmail(response.data.user.email);
 
                 if (response.data.success) {
                     toast.success("The email has changed");
@@ -172,8 +190,7 @@ function Profile({user, setUser}) {
 
 
 Profile.propTypes = {
-    user: PropTypes.object,
-    setUser: PropTypes.func.isRequired
+    userSecret: PropTypes.string,
 };
 
 

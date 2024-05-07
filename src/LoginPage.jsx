@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
 
-const LoginPage = ({user, setUser}) => {
+const LoginPage = ({userSecret, setUserSecret}) => {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ const LoginPage = ({user, setUser}) => {
                 if (response.data.success) {
                     const cookies2 = new Cookies(null, {path: '/'})
                     cookies2.set('secret', response.data.user.secret);
-                    setUser(response.data.user);
+                    setUserSecret(response.data.user.secret);
                     toast.success('Login Success');
                 } else {
                     toast.error("Error " + response.data.errorCode);
@@ -35,7 +35,7 @@ const LoginPage = ({user, setUser}) => {
         <main>
             <div>
                 {
-                    user ?
+                    userSecret ?
                         <div className='container'>
                             <h2>successfully logged in</h2>
                         </div>
@@ -80,8 +80,8 @@ const LoginPage = ({user, setUser}) => {
     )
 }
 LoginPage.propTypes = {
-    user: PropTypes.object,
-    setUser: PropTypes.func.isRequired
+    userSecret: PropTypes.string,
+    setUserSecret: PropTypes.func.isRequired
 };
 
 export default LoginPage;

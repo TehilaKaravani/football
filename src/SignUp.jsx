@@ -36,13 +36,13 @@ function SignUp() {
 
     return (
         <main>
-            <div>
+            <div className="container">
                 {success ?
                     <div>
                         <h2>success</h2>
                     </div>
                     :
-                    <div className="container">
+                    <div>
                         <h2>Sign up</h2>
                         <div  className='form-section'>
                             <div>
@@ -87,7 +87,7 @@ function SignUp() {
                         </div>
 
                         <button className='btn' onClick={signUp}
-                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2}>sign
+                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < 8}>sign
                             up
                         </button>
 

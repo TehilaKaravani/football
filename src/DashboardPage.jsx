@@ -18,10 +18,15 @@ const DashboardPage = ({cycle}) => {
     // }, []);
 
     useEffect(() => {
-        const filterData = cycle.filter((game)=>{
-            return game.isLive
-        })
-        setInLive(filterData);
+        if (cycle != null) {
+            const filterData = cycle.filter((game)=>{
+                return game.isLive
+            })
+            setInLive(filterData);
+        }else {
+            console.log("cycle is null");
+        }
+
     }, [cycle]);
 
     return (
