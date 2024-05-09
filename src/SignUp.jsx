@@ -30,7 +30,7 @@ function SignUp() {
                     toast.error("Error " + response.data.errorCode)
                 }
             }).catch(() => {
-            toast.error("error 9")
+            toast.error("Server error")
         })
     }
 

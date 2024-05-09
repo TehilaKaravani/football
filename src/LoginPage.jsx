@@ -27,7 +27,7 @@ const LoginPage = ({userSecret, setUserSecret}) => {
                     toast.error("Error " + response.data.errorCode);
                 }
             }).catch(() => {
-            toast.error("Error 9");
+            toast.error("Server error");
         })
     }
 

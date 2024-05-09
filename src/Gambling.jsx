@@ -62,7 +62,8 @@ function Gambling({data, userSecret}) {
                     secret: userSecret,
                     matchId: chosenMatch.id,
                     teamNum: teamNum,
-                    sum: gambleSum
+                    sum: gambleSum,
+                    // ratio: ratio
                 }
             })
             .then(response => {
@@ -99,15 +100,21 @@ function Gambling({data, userSecret}) {
                             - {ratio}
                         </div>}
                     </h3>
-                    Gamble Sum
-                    <input className='sum-gamble-input' type='number' value={gambleSum}
-                           onChange={(e) => setGambleSum(e.target.value)}/>
-
                     <div>
-                        your balance- {user.balance}
+                        ({chosenMatch.team1.name} X {chosenMatch.team2.name})
                     </div>
-                    <div>
-                        Expected gain {ratio * gambleSum}
+                    <div className='text'>
+                        Gamble Sum-
+                        <input className='sum-gamble-input' type='number' min={0} value={gambleSum}
+                               onChange={(e) => setGambleSum(e.target.value)}/>
+                    </div>
+
+                    <div className='text'>
+                        Your Balance- {user.balance}₪
+                    </div>
+
+                    <div className='text'>
+                        Expected Gain {ratio * gambleSum}
                     </div>
                     <button className='btn' onClick={sendGamble} disabled={gambleSum === 0 || user.balance < gambleSum}>send</button>
                     <button className='btn' onClick={() => {

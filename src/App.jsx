@@ -11,6 +11,7 @@ import axios from "axios";
 import Profile from "./Profile.jsx";
 import DashboardPage from "./DashboardPage.jsx";
 import Gambling from "./Gambling.jsx";
+import PersonalGambling from "./PersonalGambling.jsx";
 
 function App() {
     const [userSecret, setUserSecret] = useState(null);
@@ -50,52 +51,57 @@ function App() {
     }
 
     return (
-            <div className="App">
-                <BrowserRouter>
+        <div className="App">
+            <BrowserRouter>
 
-                    <div className='links'>
-                        <NavLink activeclassname={"active"} className={"main-link"} to={"/"}>Home</NavLink>
-                        {
-                            userSecret ?
-                                <>
-                                    <NavLink activeclassname={"active"} className={"main-link"}
-                                             to={"/profile"}>Profile</NavLink>
-                                    <NavLink activeclassname={"active"} className={"main-link"} to={"/gambling"}>Gambling</NavLink>
+                <div className='links'>
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/"}>Home</NavLink>
+                    {
+                        userSecret ?
+                            <>
+                                <NavLink activeclassname={"active"} className={"main-link"}
+                                         to={"/profile"}>Profile</NavLink>
+                                <NavLink activeclassname={"active"} className={"main-link"}
+                                         to={"/gambling"}>Gambling</NavLink>
+                                <NavLink activeclassname={"active"} className={"main-link"}
+                                         to={"/my-gambling"}>My Gambling</NavLink>
+                            </>
+                            :
+                            <>
+                                <NavLink activeclassname={"active"} className={"main-link"}
+                                         to={"/login"}>Login</NavLink>
+                                <NavLink activeclassname={"active"} className={"main-link"} to={"/sign-up"}>Sign
+                                    up</NavLink>
+                            </>
 
-                                </>
-                                :
-                                <>
-                                    <NavLink activeclassname={"active"} className={"main-link"} to={"/login"}>Login</NavLink>
-                                    <NavLink activeclassname={"active"} className={"main-link"} to={"/sign-up"}>Sign
-                                        up</NavLink>
-                                </>
-
-                        }
-                        <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score Table</NavLink>
-                        <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
-                            Page</NavLink>
-                    </div>
-
-
-
-                    <Routes>
-                        <Route path={"/"} element={<HomePage/>}/>
-                        <Route path={"/login"} element={<LoginPage userSecret={userSecret} setUserSecret={setUserSecret}/>}/>
-                        <Route path={"/sign-up"} element={<SignUp/>}/>
-                        <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
-                        <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
-                        <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
-                        <Route path={"/gambling"} element={<Gambling data={dataFromServer} userSecret={userSecret}/>}/>
-                        <Route path={"*"} element={<PageNotFound/>}/>
-                    </Routes>
-                </BrowserRouter>
-                {
-                    userSecret &&
-                    <button className='btn logout' onClick={removeSecret}>Log Out</button>
-                }
+                    }
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score
+                        Table</NavLink>
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
+                        Page</NavLink>
+                </div>
 
 
-            </div>
+                <Routes>
+                    <Route path={"/"} element={<HomePage/>}/>
+                    <Route path={"/login"}
+                           element={<LoginPage userSecret={userSecret} setUserSecret={setUserSecret}/>}/>
+                    <Route path={"/sign-up"} element={<SignUp/>}/>
+                    <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
+                    <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
+                    <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
+                    <Route path={"/gambling"} element={<Gambling data={dataFromServer} userSecret={userSecret}/>}/>
+                    <Route path={"/my-gambling"} element={<PersonalGambling userSecret={userSecret}/>}/>
+                    <Route path={"*"} element={<PageNotFound/>}/>
+                </Routes>
+            </BrowserRouter>
+            {
+                userSecret &&
+                <button className='btn logout' onClick={removeSecret}>Log Out</button>
+            }
+
+
+        </div>
 
     );
 }

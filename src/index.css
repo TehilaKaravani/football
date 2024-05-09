@@ -183,10 +183,59 @@ h2{
 }
 .sum-gamble-input {
     width: 50px;
-    padding: 0.4rem 0.75rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 0.25rem;
     background: #fcfcfd;
     border: 1px solid #a5a8a7;
+    margin-left: 0.5rem;
     font-size: 17px;
 }
+.text{
+    font-size: 19px;
+}
+.red-gamble-container {
+    width: 80vw;
+    max-width: 300px;
+    background: #ffbaa5;
+    padding: 1.5rem 2.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    /*left: 0;*/
+    /*right: 0;*/
+    margin: 2rem auto;
+}
+.green-gamble-container {
+    width: 80vw;
+    max-width: 300px;
+    background: #a3ffa9;
+    padding: 1.5rem 2.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    /*left: 0;*/
+    /*right: 0;*/
+    margin: 2rem auto;
+}
+.gray-gamble-container {
+    width: 80vw;
+    max-width: 300px;
+    background: #b7babc;
+    padding: 1.5rem 2.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    /*left: 0;*/
+    /*right: 0;*/
+    margin: 2rem auto;
+}
 
+.bold {
+    font-weight: bold;
+}
+
+.balance {
+    position: absolute;
+    background: #a3ffa9;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+    top: 0;
+    right: 0;
+}

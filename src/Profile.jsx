@@ -132,6 +132,9 @@ function Profile({userSecret}) {
         <main>
             {user &&
                 <div className='container'>
+                    <div className='balance'>
+                        balance= {user.balance}₪
+                    </div>
                     <h2>Profile</h2>
                     <div className='form-section'>
                         Your username: {

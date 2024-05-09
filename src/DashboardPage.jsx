@@ -1,62 +1,62 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
+import ScoreTable from "./ScoreTable.jsx";
+import {Link} from "react-router-dom";
 
 const DashboardPage = ({cycle}) => {
-    const [inLive, setInLive] = useState([]);
-
-    // useEffect(() => {
-    //     const eventSource = new EventSource("http://localhost:9124/start-streaming");
-    //
-    //     eventSource.onmessage = event => {
-    //         const data = JSON.parse(event.data);
-    //         setCycle(data);
-    //     };
-    //
-    //     return () => {
-    //         eventSource.close();
-    //     };
-    // }, []);
+    const [matchInLive, setMatchInLive] = useState(null);
 
     useEffect(() => {
         if (cycle != null) {
-            const filterData = cycle.filter((game)=>{
+            const filterData = cycle.filter((game) => {
                 return game.isLive
             })
-            setInLive(filterData);
-        }else {
+            setMatchInLive(filterData);
+        } else {
             console.log("cycle is null");
         }
-
     }, [cycle]);
 
     return (
         <div className='container'>
             <h2>Matches</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Team1</th>
-                    <th>Team2</th>
-                    <th>Goal1</th>
-                    <th>Goal2</th>
-                </tr>
-                </thead>
-                <tbody>
                 {
-                    inLive &&
-                    <>
-                        {inLive.map((match, index) => (
-                            <tr key={index}>
-                                <td>{match.team1.name}</td>
-                                <td>{match.team2.name}</td>
-                                <td>{match.goals_T1}</td>
-                                <td>{match.goals_T2}</td>
+                    matchInLive ?
+                        <>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Team1</th>
+                                <th>Team2</th>
+                                <th>Goal1</th>
+                                <th>Goal2</th>
                             </tr>
-                        ))}
-                    </>
+                            </thead>
+                            <tbody>
+                            {matchInLive.map((match, index) => (
+                                <tr key={index}>
+                                    <td>{match.team1.name}</td>
+                                    <td>{match.team2.name}</td>
+                                    <td>{match.goals_T1}</td>
+                                    <td>{match.goals_T2}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        </>
+                        :
+                        <div className='text'>
+                            <div>
+                                No match in live
+                            </div>
+                            <div>
+                                <Link to="/score-table">
+                                    <button className='btn' onClick={<ScoreTable/>}>see previous games</button>
+                                </Link>
+                            </div>
+                        </div>
                 }
-                </tbody>
-            </table>
+
         </div>
     );
 };
