@@ -24,13 +24,17 @@ function PersonalGambling({userSecret}) {
     return (
         <div className='container'>
             <h2>My Gambling</h2>
-            {gambling.map((gamble,index)=> {
-                return(
-                    <div key={index}>
-                        <Gamble gamble={gamble}/>
-                    </div>
-                )
-            })
+            {gambling &&
+                <div>
+                    {gambling.map((gamble,index)=> {
+                        return(
+                            <div key={index}>
+                                <Gamble gamble={gamble}/>
+                            </div>
+                        )
+                    })
+                    }
+                </div>
             }
         </div>
     );
