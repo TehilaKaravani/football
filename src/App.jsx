@@ -62,9 +62,9 @@ function App() {
                                 <NavLink activeclassname={"active"} className={"main-link"}
                                          to={"/profile"}>Profile</NavLink>
                                 <NavLink activeclassname={"active"} className={"main-link"}
-                                         to={"/gambling"}>Gambling</NavLink>
-                                <NavLink activeclassname={"active"} className={"main-link"}
                                          to={"/my-gambling"}>My Gambling</NavLink>
+                                <NavLink activeclassname={"active"} className={"main-link"}
+                                         to={"/gambling"}>Gambling</NavLink>
                             </>
                             :
                             <>
@@ -77,8 +77,7 @@ function App() {
                     }
                     <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score
                         Table</NavLink>
-                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Dashboard
-                        Page</NavLink>
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Steams Live Games</NavLink>
                 </div>
 
 

@@ -13,9 +13,12 @@ function Gamble({gamble}) {
                 {gamble.team === 1 && gamble.match.team1.name}
                 {gamble.team === 2 && gamble.match.team2.name}
             </div>
-            <div>
-                gain-
-            </div>
+            {gamble.isCorrect &&
+                <div>
+                    gain-{(gamble.sum * gamble.ratio).toFixed(2)}
+                </div>
+            }
+
 
             {/*gain = ?*/}
 

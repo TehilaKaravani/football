@@ -133,7 +133,7 @@ function Profile({userSecret}) {
             {user &&
                 <div className='container'>
                     <div className='balance'>
-                        balance= {user.balance}₪
+                        balance= {(user.balance).toFixed(2)}₪
                     </div>
                     <h2>Profile</h2>
                     <div className='form-section'>

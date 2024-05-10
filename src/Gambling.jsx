@@ -63,7 +63,7 @@ function Gambling({data, userSecret}) {
                     matchId: chosenMatch.id,
                     teamNum: teamNum,
                     sum: gambleSum,
-                    // ratio: ratio
+                    ratio: ratio
                 }
             })
             .then(response => {
