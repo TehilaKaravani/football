@@ -65,6 +65,7 @@ function SignUp() {
                                 }}/>
                             </div>
                         </div>
+
                         <div className='form-section'>
                             <div>
                                 password:
@@ -84,7 +85,11 @@ function SignUp() {
                                     setPassword2(e.target.value)
                                 }}/>
                             </div>
+                            <div className='gray-text'>
+                                *The password must be 8 characters or longer
+                            </div>
                         </div>
+
 
                         <button className='btn' onClick={signUp}
                                 disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < 8}>sign

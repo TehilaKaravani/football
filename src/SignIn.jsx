@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
 
-const LoginPage = ({userSecret, setUserSecret}) => {
+const SignIn = ({userSecret, setUserSecret}) => {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -66,7 +66,7 @@ const LoginPage = ({userSecret, setUserSecret}) => {
                             </div>
 
                             <button className='btn' onClick={login}
-                                    disabled={password.length === 0 || email.length === 0}>Login
+                                    disabled={password.length < 8 || email.length === 0}>Login
                             </button>
 
                         </div>
@@ -79,9 +79,9 @@ const LoginPage = ({userSecret, setUserSecret}) => {
 
     )
 }
-LoginPage.propTypes = {
+SignIn.propTypes = {
     userSecret: PropTypes.string,
     setUserSecret: PropTypes.func.isRequired
 };
 
-export default LoginPage;
+export default SignIn;

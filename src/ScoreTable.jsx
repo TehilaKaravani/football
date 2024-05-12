@@ -57,14 +57,48 @@ function ScoreTable({data}) {
             }
         })
 
-        const sortedScores = scoreList.sort((teamScoreA, teamScoreB) => {
-            return teamScoreB.score - teamScoreA.score;
+
+        const sortedScores = scoreList.sort((teamA, teamB) => {
+
+            // const scoreDifference = teamB.score - teamA.score;
+            // if (scoreDifference === 0) {
+            //     const goalsDifference = getGoalsByTeam(teamB.name)  - getGoalsByTeam(teamA.name);
+            //     if (goalsDifference === 0) {
+
+            teamA.name.localeCompare(teamB.name)
+
+            // if (teamA.name < teamB.name) {
+            //     return -1;
+            // }
+            // if (teamA.name > teamB.name) {
+            //     return 1;
+            // } else {
+            //     return 0;
+            // }
+
+            //     }else {
+            //         return goalsDifference;
+            //     }
+            // }
+            // return scoreDifference;
         });
         setScore(sortedScores);
-
-
-
     }, [data]);
+
+    const getGoalsByTeam  = (teamName) => {
+        let goals = 0;
+        const matchWithTeam = matches.filter((match) => {
+            return match.team1.name.equals(teamName) || match.team2.name.equals(teamName)
+        })
+        matchWithTeam.map((match) => {
+            if (match.team1.name.equals(teamName)) {
+                goals += match.goals_T1;
+            } else {
+                goals += match.goals_T2;
+            }
+        })
+        console.log(teamName + " ----the goals" + goals);
+    }
 
 
 

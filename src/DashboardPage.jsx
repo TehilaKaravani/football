@@ -19,7 +19,7 @@ const DashboardPage = ({cycle}) => {
 
     return (
         <div className='container'>
-            <h2>Matches</h2>
+            <h2>Steams Live Games</h2>
                 {
                     matchInLive ?
                         <>

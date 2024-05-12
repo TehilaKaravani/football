@@ -150,7 +150,7 @@ function Gambling({data, userSecret}) {
                                 return (<tr key={index}>
                                     <td>
                                         <button name='team1' className='gambling-btn'
-                                                onClick={(e) => gambleSelected(match, 1)}>
+                                                onClick={() => gambleSelected(match, 1)}>
                                             <div>
                                                 {match.team1.name}
                                             </div>
@@ -162,7 +162,7 @@ function Gambling({data, userSecret}) {
 
                                     <td>
                                         <button name='draw' className='gambling-btn'
-                                                onClick={(e) => gambleSelected(match, 0)}>
+                                                onClick={() => gambleSelected(match, 0)}>
                                             <div className='bet-ratio'>
                                                 {(100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2)}
                                             </div>
@@ -170,7 +170,7 @@ function Gambling({data, userSecret}) {
                                     </td>
                                     <td>
                                         <button name='team2' className='gambling-btn'
-                                                onClick={(e) => gambleSelected(match, 2)}>
+                                                onClick={() => gambleSelected(match, 2)}>
                                             <div>
                                                 {match.team2.name}
                                             </div>
@@ -185,7 +185,7 @@ function Gambling({data, userSecret}) {
                             </tbody>
                         </table>
                         :
-                        <div>
+                        <div className='text'>
                             No future games
                         </div>
                 }

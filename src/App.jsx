@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
 
-import LoginPage from "./LoginPage.jsx";
+import SignIn from "./SignIn.jsx";
 import SignUp from "./SignUp.jsx";
 import HomePage from "./HomePage.jsx";
 import PageNotFound from "./PageNotFound.jsx";
@@ -77,14 +77,14 @@ function App() {
                     }
                     <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score
                         Table</NavLink>
-                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Steams Live Games</NavLink>
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Streams Live Games</NavLink>
                 </div>
 
 
                 <Routes>
                     <Route path={"/"} element={<HomePage/>}/>
                     <Route path={"/login"}
-                           element={<LoginPage userSecret={userSecret} setUserSecret={setUserSecret}/>}/>
+                           element={<SignIn userSecret={userSecret} setUserSecret={setUserSecret}/>}/>
                     <Route path={"/sign-up"} element={<SignUp/>}/>
                     <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
                     <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
