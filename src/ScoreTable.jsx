@@ -17,15 +17,14 @@ function ScoreTable({data}) {
 
     useEffect(() => {
         let teams = [];
-        if (matches) {
-            matches.map((match,index) => {
+        if (data) {
+            data.map((match,index) => {
                 if (index < 4) {
                     teams.push(match.team1.name);
                     teams.push(match.team2.name);
                 }
             })
         }
-
         let scoreList = [];
         teams.map((team)=> {
             scoreList.push({
@@ -33,6 +32,7 @@ function ScoreTable({data}) {
                 score: 0
             })
         })
+
         matches.map((game)=>{
             let winner = null;
             if (game.goals_T1 > game.goals_T2) {
@@ -59,28 +59,16 @@ function ScoreTable({data}) {
 
 
         const sortedScores = scoreList.sort((teamA, teamB) => {
-
-            // const scoreDifference = teamB.score - teamA.score;
-            // if (scoreDifference === 0) {
-            //     const goalsDifference = getGoalsByTeam(teamB.name)  - getGoalsByTeam(teamA.name);
-            //     if (goalsDifference === 0) {
-
-            teamA.name.localeCompare(teamB.name)
-
-            // if (teamA.name < teamB.name) {
-            //     return -1;
-            // }
-            // if (teamA.name > teamB.name) {
-            //     return 1;
-            // } else {
-            //     return 0;
-            // }
-
-            //     }else {
-            //         return goalsDifference;
-            //     }
-            // }
-            // return scoreDifference;
+            const scoreDifference = teamB.score - teamA.score;
+            if (scoreDifference === 0) {
+                const goalsDifference = getGoalsByTeam(teamB.teamName) - getGoalsByTeam(teamA.teamName);
+                if (goalsDifference === 0) {
+                    return teamA.teamName.localeCompare(teamB.teamName);
+                }else {
+                    return goalsDifference;
+                }
+            }
+            return scoreDifference;
         });
         setScore(sortedScores);
     }, [data]);
@@ -88,16 +76,16 @@ function ScoreTable({data}) {
     const getGoalsByTeam  = (teamName) => {
         let goals = 0;
         const matchWithTeam = matches.filter((match) => {
-            return match.team1.name.equals(teamName) || match.team2.name.equals(teamName)
+            return (match.team1.name === teamName) || (match.team2.name === teamName);
         })
         matchWithTeam.map((match) => {
-            if (match.team1.name.equals(teamName)) {
+            if (match.team1.name === teamName) {
                 goals += match.goals_T1;
             } else {
                 goals += match.goals_T2;
             }
         })
-        console.log(teamName + " ----the goals" + goals);
+        return goals;
     }
 
 
@@ -108,16 +96,16 @@ function ScoreTable({data}) {
             <thead>
             <tr>
                 <th>
-                    team1
+                    Team1
                 </th>
                 <th>
-                    team2
+                    Team2
                 </th>
                 <th>
-                    goals1
+                    Goals1
                 </th>
                 <th>
-                    goals2
+                    Goals2
                 </th>
             </tr>
             </thead>
@@ -151,15 +139,13 @@ function ScoreTable({data}) {
             <thead>
             <tr>
                 <th>
-                    team
+                    Team
                 </th>
                 <th>
-                    score
+                    Score
                 </th>
             </tr>
             </thead>
-
-
             <tbody>
             {score.map((teamScore, index) => {
                 return (<tr key={index}>
