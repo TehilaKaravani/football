@@ -5,14 +5,13 @@ import {ToastContainer, toast} from 'react-toastify';
 
 function SignUp() {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [success, setSuccess] = useState(false);
 
 
     const signUp = () => {
-        // check email and strong password
         axios.get("http://localhost:9124/sign-up",
             {
                 params: {
@@ -44,7 +43,7 @@ function SignUp() {
                     :
                     <div>
                         <h2>Sign up</h2>
-                        <div  className='form-section'>
+                        <div className='form-section'>
                             <div>
                                 username:
                             </div>
@@ -95,11 +94,7 @@ function SignUp() {
                                 disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < 8}>sign
                             up
                         </button>
-
-
                     </div>}
-
-
             </div>
             <ToastContainer position='top-center'/>
         </main>

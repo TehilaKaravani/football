@@ -12,12 +12,13 @@ const SignIn = ({userSecret, setUserSecret}) => {
     const login = () => {
         axios.get("http://localhost:9124/login",
             {
-                params: {
+                params:{
                     email: email,
                     password: password
                 }
             })
             .then(response => {
+                console.log(response.data);
                 if (response.data.success) {
                     const cookies2 = new Cookies(null, {path: '/'})
                     cookies2.set('secret', response.data.user.secret);
@@ -68,12 +69,9 @@ const SignIn = ({userSecret, setUserSecret}) => {
                             <button className='btn' onClick={login}
                                     disabled={password.length < 8 || email.length === 0}>Login
                             </button>
-
                         </div>
                 }
             </div>
-
-
             <ToastContainer position='top-center'/>
         </main>
 

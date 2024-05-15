@@ -137,7 +137,7 @@ function Gambling({data, userSecret}) {
 
                 {
                     (matches.length !== 0) ?
-                        <table className='table1'>
+                        <table className='table'>
                             <thead>
                             <tr>
                                 <th>team1</th>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 function Gamble({gamble}) {
     return (
         <div className={(gamble.isCorrect === null) ? 'gray-gamble-container text' : (gamble.isCorrect === true ? 'green-gamble-container text' : 'red-gamble-container text')}>
-            <div className='bold winner-group'>{gamble.match.team1.name} X {gamble.match.team2.name}</div>
+            <div className='bold'>{gamble.match.team1.name} X {gamble.match.team2.name}</div>
 
             <div>
                 <>
