@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
-
+const WINNER_POINTS = 3;
+const DRAW_POINTS = 1;
 function ScoreTable({data}) {
     const [score, setScore] = useState([])
     const [matches, setMatches] = useState([])
@@ -47,13 +48,13 @@ function ScoreTable({data}) {
                 const teamScore2 = scoreList.find((teamScore) =>{
                     return teamScore.teamName === game.team2.name;
                 })
-                teamScore2.score += 1;
-                teamScore1.score += 1;
+                teamScore2.score += DRAW_POINTS;
+                teamScore1.score += DRAW_POINTS;
             }else {
                 const teamScore = scoreList.find((teamScore) =>{
                     return winner.name === teamScore.teamName;
                 })
-                teamScore.score += 3;
+                teamScore.score += WINNER_POINTS;
             }
         })
 

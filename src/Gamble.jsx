@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
 
+const TEAM_1 = 1;
+const TEAM_2 = 2;
+const DRAW = 0;
+
 function Gamble({gamble}) {
     return (
         <div className={(gamble.isCorrect === null) ? 'gray-gamble-container text' : (gamble.isCorrect === true ? 'green-gamble-container text' : 'red-gamble-container text')}>
@@ -9,9 +13,9 @@ function Gamble({gamble}) {
                 <>
                     Your gamble: {" "}
                 </>
-                {gamble.team === 0 && "draw"}
-                {gamble.team === 1 && gamble.match.team1.name}
-                {gamble.team === 2 && gamble.match.team2.name}
+                {gamble.team === DRAW && "draw"}
+                {gamble.team === TEAM_1 && gamble.match.team1.name}
+                {gamble.team === TEAM_2 && gamble.match.team2.name}
             </div>
             {gamble.isCorrect &&
                 <div>

@@ -4,6 +4,10 @@ import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
 
+const MIN_PASS_LENGTH = 8;
+
+
+
 const SignIn = ({userSecret, setUserSecret}) => {
 
     const [password, setPassword] = useState("");
@@ -16,6 +20,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
                     email: email,
                     password: password
                 }
+
             })
             .then(response => {
                 console.log(response.data);
@@ -67,7 +72,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
                             </div>
 
                             <button className='btn' onClick={login}
-                                    disabled={password.length < 8 || email.length === 0}>Login
+                                    disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
                             </button>
                         </div>
                 }
