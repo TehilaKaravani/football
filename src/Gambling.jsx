@@ -2,12 +2,7 @@ import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
-
-const INITIAL_BALANCE = 0;
-const TEAM_1 = 1;
-const TEAM_2 = 2;
-const DRAW = 0;
-
+import Constants from "./Constants";
 
 function Gambling({data, userSecret}) {
 
@@ -93,15 +88,15 @@ function Gambling({data, userSecret}) {
             <main>
                 <div className='container'>
                     <h3>
-                        {teamNum === DRAW && <div>
+                        {teamNum === Constants.DRAW && <div>
                             draw
                             - {ratio}
                         </div>}
-                        {teamNum === TEAM_1 && <div>
+                        {teamNum === Constants.TEAM_1 && <div>
                             {chosenMatch.team1.name}
                             - {ratio}
                         </div>}
-                        {teamNum === TEAM_2 && <div>
+                        {teamNum === Constants.TEAM_2 && <div>
                             {chosenMatch.team2.name}
                             - {ratio}
                         </div>}
@@ -122,7 +117,7 @@ function Gambling({data, userSecret}) {
                     <div className='text'>
                         Expected Gain {(ratio * gambleSum).toFixed(2)}
                     </div>
-                    <button className='btn' onClick={sendGamble} disabled={gambleSum === INITIAL_BALANCE || user.balance < gambleSum}>send</button>
+                    <button className='btn' onClick={sendGamble} disabled={gambleSum === Constants.INITIAL_BALANCE || user.balance < gambleSum}>send</button>
                     <button className='btn' onClick={() => {
                         setIsGambling(false)
                         setRatio(null)
@@ -156,7 +151,7 @@ function Gambling({data, userSecret}) {
                                 return (<tr key={index}>
                                     <td>
                                         <button name='team1' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, TEAM_1)}>
+                                                onClick={() => gambleSelected(match, Constants.TEAM_1)}>
                                             <div>
                                                 {match.team1.name}
                                             </div>
@@ -168,7 +163,7 @@ function Gambling({data, userSecret}) {
 
                                     <td>
                                         <button name='draw' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, DRAW)}>
+                                                onClick={() => gambleSelected(match, Constants.DRAW)}>
                                             <div className='bet-ratio'>
                                                 {(100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2)}
                                             </div>
@@ -176,7 +171,7 @@ function Gambling({data, userSecret}) {
                                     </td>
                                     <td>
                                         <button name='team2' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, TEAM_2)}>
+                                                onClick={() => gambleSelected(match, Constants.TEAM_2)}>
                                             <div>
                                                 {match.team2.name}
                                             </div>

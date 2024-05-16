@@ -1,8 +1,5 @@
 import PropTypes from "prop-types";
-
-const TEAM_1 = 1;
-const TEAM_2 = 2;
-const DRAW = 0;
+import Constants from "./Constants";
 
 function Gamble({gamble}) {
     return (
@@ -13,9 +10,9 @@ function Gamble({gamble}) {
                 <>
                     Your gamble: {" "}
                 </>
-                {gamble.team === DRAW && "draw"}
-                {gamble.team === TEAM_1 && gamble.match.team1.name}
-                {gamble.team === TEAM_2 && gamble.match.team2.name}
+                {gamble.team === Constants.DRAW && "draw"}
+                {gamble.team === Constants.TEAM_1 && gamble.match.team1.name}
+                {gamble.team === Constants.TEAM_2 && gamble.match.team2.name}
             </div>
             {gamble.isCorrect &&
                 <div>

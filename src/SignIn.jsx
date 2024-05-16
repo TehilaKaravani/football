@@ -3,10 +3,7 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
-
-const MIN_PASS_LENGTH = 8;
-
-
+import Constants from "./Constants";
 
 const SignIn = ({userSecret, setUserSecret}) => {
 
@@ -72,7 +69,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
                             </div>
 
                             <button className='btn' onClick={login}
-                                    disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
+                                    disabled={password.length < Constants.MIN_PASS_LENGTH || email.length === 0}>Login
                             </button>
                         </div>
                 }

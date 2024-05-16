@@ -1,9 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 import {ToastContainer, toast} from 'react-toastify';
-const MIN_PASS_LENGTH = 8;
-
-
+import Constants from "./Constants";
 
 function SignUp() {
     const [username, setUsername] = useState("");
@@ -93,7 +91,7 @@ function SignUp() {
 
 
                         <button className='btn' onClick={signUp}
-                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < MIN_PASS_LENGTH}>sign
+                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < Constants.MIN_PASS_LENGTH}>sign
                             up
                         </button>
                     </div>}

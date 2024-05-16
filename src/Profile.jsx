@@ -2,9 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from 'prop-types';
-
-const MIN_PASS_LENGTH = 8;
-
+import Constants from "./Constants";
 
 function Profile({userSecret}) {
     const [user, setUser] = useState(null);
@@ -44,7 +42,7 @@ function Profile({userSecret}) {
     }
 
     const checkPassword = () => {
-        return (newPassword.length >= MIN_PASS_LENGTH) && (newPassword === repeatPassword) && (currentPassword !== newPassword);
+        return (newPassword.length >= Constants.MIN_PASS_LENGTH) && (newPassword === repeatPassword) && (currentPassword !== newPassword);
 
     }
 
