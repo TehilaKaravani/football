@@ -7,7 +7,7 @@ import Constants from "./Constants";
 function Gambling({data, userSecret}) {
 
     const [user, setUser] = useState(null);
-    const [matches, setMatches] = useState([]);
+    const [futureMatches, setFutureMatches] = useState([]);
     const [isGambling, setIsGambling] = useState(false);
     const [gambleSum, setGambleSum] = useState(0);
     const [teamNum, setTeamNum] = useState(null);
@@ -16,7 +16,7 @@ function Gambling({data, userSecret}) {
     const [changeCounter, setChangeCounter] = useState(0);
 
     useEffect(() => {
-        axios.get("http://localhost:9124/get-user-by-secret",
+        axios.post("http://localhost:9124/get-user-by-secret",null,
             {
                 params: {
                     secret: userSecret
@@ -28,7 +28,7 @@ function Gambling({data, userSecret}) {
                     console.log("change")
                 }
             }).catch(()=>{
-            toast.error("Error 9");
+            toast.error("Server Error");
         })
     }, [changeCounter]);
 
@@ -38,7 +38,7 @@ function Gambling({data, userSecret}) {
             const filterData = data.filter((game) => {
                 return (game.isLive == null);
             })
-            setMatches(filterData);
+            setFutureMatches(filterData);
         }
     }, [data]);
 
@@ -57,7 +57,7 @@ function Gambling({data, userSecret}) {
 
 
     const sendGamble = () => {
-        axios.get("http://localhost:9124/add-gamble",
+        axios.post("http://localhost:9124/add-gamble",null,
             {
                 params: {
                     secret: userSecret,
@@ -70,126 +70,122 @@ function Gambling({data, userSecret}) {
             .then(response => {
                 if (response.data.success) {
                     toast.success("Gamble is successful");
-                    setRatio(null);
-                    setGambleSum(0);
                     setChangeCounter(changeCounter + 1)
                 } else {
                     toast.error("Error " + response.data.errorCode)
                 }
-                setIsGambling(!response.data.success)
+                setIsGambling(false);
+                setRatio(null);
+                setGambleSum(0);
             }).catch(() => {
-            toast.error("error 9")
+            toast.error("Server Error")
         })
     }
 
-
-    if (isGambling) {
-        return (
-            <main>
-                <div className='container'>
-                    <h3>
-                        {teamNum === Constants.DRAW && <div>
-                            draw
-                            - {ratio}
-                        </div>}
-                        {teamNum === Constants.TEAM_1 && <div>
-                            {chosenMatch.team1.name}
-                            - {ratio}
-                        </div>}
-                        {teamNum === Constants.TEAM_2 && <div>
-                            {chosenMatch.team2.name}
-                            - {ratio}
-                        </div>}
-                    </h3>
-                    <div>
-                        ({chosenMatch.team1.name} X {chosenMatch.team2.name})
-                    </div>
-                    <div className='text'>
-                        Gamble Sum-
-                        <input className='sum-gamble-input' type='number' min={0} value={gambleSum}
-                               onChange={(e) => setGambleSum(e.target.value)}/>
-                    </div>
-
-                    <div className='text'>
-                        Your Balance- {user.balance}₪
-                    </div>
-
-                    <div className='text'>
-                        Expected Gain {(ratio * gambleSum).toFixed(2)}
-                    </div>
-                    <button className='btn' onClick={sendGamble} disabled={gambleSum === Constants.INITIAL_BALANCE || user.balance < gambleSum}>send</button>
-                    <button className='btn' onClick={() => {
-                        setIsGambling(false)
-                        setRatio(null)
-                        setGambleSum(0);
-                    }}>cancel
-                    </button>
-
-                </div>
-                <ToastContainer position='top-center'/>
-            </main>
-
-        );
-    }
     return (
         <main>
             <div className='container'>
                 <h2>Gambling</h2>
-
                 {
-                    (matches.length !== 0) ?
-                        <table className='table'>
-                            <thead>
-                            <tr>
-                                <th>team1</th>
-                                <th>X</th>
-                                <th>team2</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {matches.map((match, index) => {
-                                return (<tr key={index}>
-                                    <td>
-                                        <button name='team1' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, Constants.TEAM_1)}>
-                                            <div>
-                                                {match.team1.name}
-                                            </div>
-                                            <div className='bet-ratio'>
-                                                {(100 / match.team1.skillLevel).toFixed(2)}
-                                            </div>
-                                        </button>
-                                    </td>
+                    isGambling ?
+                        <div>
+                            <h3>
+                                {teamNum === Constants.DRAW && <div>
+                                    draw
+                                    - {ratio}
+                                </div>}
+                                {teamNum === Constants.TEAM_1 && <div>
+                                    {chosenMatch.team1.name}
+                                    - {ratio}
+                                </div>}
+                                {teamNum === Constants.TEAM_2 && <div>
+                                    {chosenMatch.team2.name}
+                                    - {ratio}
+                                </div>}
+                            </h3>
+                            <div>
+                                ({chosenMatch.team1.name} X {chosenMatch.team2.name})
+                            </div>
+                            <div className='text'>
+                                Gamble Sum-
+                                <input className='sum-gamble-input' type='number' min={0} value={gambleSum}
+                                       onChange={(e) => setGambleSum(e.target.value)}/>
+                            </div>
 
-                                    <td>
-                                        <button name='draw' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, Constants.DRAW)}>
-                                            <div className='bet-ratio'>
-                                                {(100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2)}
-                                            </div>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button name='team2' className='gambling-btn'
-                                                onClick={() => gambleSelected(match, Constants.TEAM_2)}>
-                                            <div>
-                                                {match.team2.name}
-                                            </div>
-                                            <div className='bet-ratio'>
-                                                {(100 / match.team2.skillLevel).toFixed(2)}
-                                            </div>
-                                        </button>
-                                    </td>
-                                </tr>)
-                            })}
+                            <div className='text'>
+                                Your Balance- {user.balance}₪
+                            </div>
 
-                            </tbody>
-                        </table>
+                            <div className='text'>
+                                Expected Gain {(ratio * gambleSum).toFixed(2)}
+                            </div>
+                            <button className='btn' onClick={sendGamble} disabled={gambleSum === Constants.INITIAL_BALANCE || user.balance < gambleSum}>send</button>
+                            <button className='btn' onClick={() => {
+                                setIsGambling(false);
+                                setRatio(null);
+                                setGambleSum(0);
+                            }}>cancel
+                            </button>
+                        </div>
                         :
-                        <div className='text'>
-                            No future games
+                        <div>
+                            {
+                                (futureMatches.length !== 0) ?
+                                    <table className='table'>
+                                        <thead>
+                                        <tr>
+                                            <th>team1</th>
+                                            <th>X</th>
+                                            <th>team2</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {futureMatches.map((match, index) => {
+                                            return (<tr key={index}>
+                                                <td>
+                                                    <button name='team1' className='gambling-btn'
+                                                            onClick={() => gambleSelected(match, Constants.TEAM_1)}>
+                                                        <div>
+                                                            {match.team1.name}
+                                                        </div>
+                                                        <div className='bet-ratio'>
+                                                            {(100 / match.team1.skillLevel).toFixed(2)}
+                                                        </div>
+                                                    </button>
+                                                </td>
+
+                                                <td>
+                                                    <button name='draw' className='gambling-btn'
+                                                            onClick={() => gambleSelected(match, Constants.DRAW)}>
+                                                        <div className='bet-ratio'>
+                                                            {(100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2)}
+                                                        </div>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button name='team2' className='gambling-btn'
+                                                            onClick={() => gambleSelected(match, Constants.TEAM_2)}>
+                                                        <div>
+                                                            {match.team2.name}
+                                                        </div>
+                                                        <div className='bet-ratio'>
+                                                            {(100 / match.team2.skillLevel).toFixed(2)}
+                                                        </div>
+                                                    </button>
+                                                </td>
+                                            </tr>)
+                                        })}
+
+                                        </tbody>
+                                    </table>
+                                    :
+                                    <div className='text'>
+                                        No future games
+                                    </div>
+                            }
                         </div>
                 }
+
             </div>
             <ToastContainer position='top-center'/>
         </main>

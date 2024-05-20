@@ -15,7 +15,7 @@ function Profile({userSecret}) {
 
 
     useEffect(() => {
-        axios.get("http://localhost:9124/get-user-by-secret",
+        axios.post("http://localhost:9124/get-user-by-secret",null,
             {
                 params: {
                     secret: userSecret
@@ -28,7 +28,7 @@ function Profile({userSecret}) {
                     setEmail(response.data.user.email);
                 }
             }).catch(()=>{
-            toast.error("Error 9");
+            toast.error("Server Error");
         })
     }, []);
     const checkEmail = () => {
@@ -47,7 +47,7 @@ function Profile({userSecret}) {
     }
 
     const updateEmail = () => {
-        axios.get("http://localhost:9124/change-username-or-email",
+        axios.post("http://localhost:9124/change-username-or-email",null,
             {
                 params: {
                     category: "email",
@@ -66,12 +66,12 @@ function Profile({userSecret}) {
                     toast.error("Error " + response.data.errorCode);
                 }
             }).catch(()=>{
-            toast.error("Error 9");
+            toast.error("Server Error");
         })
     }
 
     const updateUsername = () => {
-        axios.get("http://localhost:9124/change-username-or-email",
+        axios.post("http://localhost:9124/change-username-or-email",null,
             {
                 params: {
                     category: "username",
@@ -89,13 +89,13 @@ function Profile({userSecret}) {
                     toast.error("Error " + response.data.errorCode);
                 }
             }).catch(()=>{
-                toast.error("Error 9");
+                toast.error("Server Error");
         })
     }
 
     const updatePassword = () => {
         if (currentPassword === user.password) {
-            axios.get("http://localhost:9124/change-password",
+            axios.post("http://localhost:9124/change-password",null,
                 {
                     params: {
                         toChange: newPassword,
@@ -113,7 +113,7 @@ function Profile({userSecret}) {
                         toast.error("Error " + response.data.errorCode);
                     }
                 }).catch(()=>{
-                toast.error("Error 9");
+                toast.error("Server Error");
             })
             resetChangePassword();
         } else {

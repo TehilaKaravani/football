@@ -16,7 +16,7 @@ function PersonalGambling({userSecret}) {
             .then(response => {
                 setGambling(response.data);
             }).catch(()=>{
-            console.log("server error")
+            console.log("Server Error")
         })
     });
 

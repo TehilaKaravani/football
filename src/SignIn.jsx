@@ -11,7 +11,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
     const [email, setEmail] = useState("");
 
     const login = () => {
-        axios.get("http://localhost:9124/login",
+        axios.post("http://localhost:9124/login",null,
             {
                 params:{
                     email: email,
@@ -30,7 +30,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
                     toast.error("Error " + response.data.errorCode);
                 }
             }).catch(() => {
-            toast.error("Server error");
+            toast.error("Server Error");
         })
     }
 

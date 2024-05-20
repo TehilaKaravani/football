@@ -12,7 +12,7 @@ function SignUp() {
 
 
     const signUp = () => {
-        axios.post("http://localhost:9124/sign-up",
+        axios.post("http://localhost:9124/sign-up",null,
             {
                 params: {
                     username: username,
@@ -29,7 +29,7 @@ function SignUp() {
                     toast.error("Error " + response.data.errorCode)
                 }
             }).catch(() => {
-            toast.error("Server error")
+            toast.error("Server Error")
         })
     }
 

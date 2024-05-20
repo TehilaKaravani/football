@@ -21,7 +21,7 @@ function App() {
         const cookies = new Cookies();
         const secret = cookies.get('secret');
         if (secret !== undefined) {
-            axios.get("http://localhost:9124/get-user-by-secret?secret=" + secret)
+            axios.post("http://localhost:9124/get-user-by-secret?secret=" + secret)
                 .then((res) => {
                     if (res.data.success === true) {
                         setUserSecret(res.data.user.secret);
