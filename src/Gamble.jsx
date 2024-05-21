@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import Constants from "./Constants";
-
+import { TEAM_1, TEAM_2, DRAW} from './constants';
 function Gamble({gamble}) {
     return (
         <div className={(gamble.isCorrect === null) ? 'gray-gamble-container text' : (gamble.isCorrect === true ? 'green-gamble-container text' : 'red-gamble-container text')}>
@@ -10,9 +9,9 @@ function Gamble({gamble}) {
                 <>
                     Your gamble: {" "}
                 </>
-                {gamble.team === Constants.DRAW && "draw"}
-                {gamble.team === Constants.TEAM_1 && gamble.match.team1.name}
-                {gamble.team === Constants.TEAM_2 && gamble.match.team2.name}
+                {gamble.team === DRAW && "draw"}
+                {gamble.team === TEAM_1 && gamble.match.team1.name}
+                {gamble.team === TEAM_2 && gamble.match.team2.name}
             </div>
             {gamble.isCorrect &&
                 <div>

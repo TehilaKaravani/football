@@ -1,9 +1,8 @@
-const TEAM_1 = 1;
-const TEAM_2 = 2;
-const DRAW = 0;
-const INITIAL_BALANCE = 0
-const WINNER_POINTS = 3;
-const DRAW_POINTS = 1;
-const MIN_PASS_LENGTH = 8;
-
-export default { TEAM_1, TEAM_2, DRAW, INITIAL_BALANCE, WINNER_POINTS, DRAW_POINTS, MIN_PASS_LENGTH }
+// constants.js
+export const TEAM_1 = 1;
+export const TEAM_2 = 2;
+export const DRAW = 0;
+export const INITIAL_BALANCE = 0;
+export const WINNER_POINTS = 3;
+export const DRAW_POINTS = 1;
+export const MIN_PASS_LENGTH = 8;

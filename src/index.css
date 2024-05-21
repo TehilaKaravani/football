@@ -38,20 +38,17 @@ a:hover {
     margin: 10px;
 }
 
-main {
-    min-height: 100vh;
-    display: flex;
-    /*justify-content: center;*/
-}
-
-
-tr, td, th {
-    margin: auto;
+tr, td, th{
+    margin-top: 2rem;
+    /*margin: auto;*/
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 100px;
     height: 30px;
 }
-
 
 .logout {
     position: fixed;
@@ -69,34 +66,13 @@ tr, td, th {
     position: absolute;
     left: 0;
     right: 0;
-    /*margin: auto;*/
-    /*margin-top: 2rem;*/
     margin: 2rem auto;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
 }
 
 .container:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.big-container {
-    width: 60vw;
-    max-width: 1000px;
-    background: #ffffff;
-    padding: 1.5rem 2rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    transition: 0.3s ease-in-out all;
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: 3rem;
-}
-
-
-.big-container:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
@@ -130,12 +106,13 @@ tr, td, th {
 }
 
 .table {
-    display: inline-block;
-    vertical-align: top;
-    /*border: 1px solid black;*/
-    margin: 2rem;
-    text-align: center;
-    align-items: center;
+    right: 0;
+    margin: 3rem auto 0 auto;}
+.tables{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
 }
 
 .table1,
@@ -144,8 +121,7 @@ tr, td, th {
     vertical-align: top;
     border: 1px solid black;
     margin: 2rem;
-    text-align: center;
-    align-items: center;
+    flex: 0 0 auto;
 }
 
 .form-input {
@@ -247,3 +223,23 @@ h2{
 .gray-text {
     color: #3d4042;
 }
+
+
+.restart {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #646cff;
+    border-color: #ffffff;
+    padding: 0.375rem 0.75rem;
+    margin-top: 0.25rem;
+    transition: transform 0.5s ease;
+}
+.restart:hover{
+    transform: rotate(-30deg);
+}
+
+
+

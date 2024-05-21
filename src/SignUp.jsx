@@ -1,8 +1,8 @@
 import axios from "axios";
 import {useState} from "react";
 import {ToastContainer, toast} from 'react-toastify';
-import Constants from "./Constants";
-
+import {MIN_PASS_LENGTH} from './constants';
+import {errorMessages} from "./ErrorMessages.jsx";
 function SignUp() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ function SignUp() {
                 if (response.data.success) {
                     toast.success("Sign up successful")
                 } else {
-                    toast.error("Error " + response.data.errorCode)
+                    toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
             }).catch(() => {
             toast.error("Server Error")
@@ -91,7 +91,7 @@ function SignUp() {
 
 
                         <button className='btn' onClick={signUp}
-                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < Constants.MIN_PASS_LENGTH}>sign
+                                disabled={username.length === 0 || password.length === 0 || email.length === 0 || password !== password2 || password.length < MIN_PASS_LENGTH}>sign
                             up
                         </button>
                     </div>}

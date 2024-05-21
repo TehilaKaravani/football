@@ -2,7 +2,9 @@ import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
-import Constants from "./Constants";
+import {TEAM_1, TEAM_2, DRAW, INITIAL_BALANCE} from './constants';
+import {errorMessages} from "./ErrorMessages.jsx";
+
 
 function Gambling({data, userSecret}) {
 
@@ -13,10 +15,10 @@ function Gambling({data, userSecret}) {
     const [teamNum, setTeamNum] = useState(null);
     const [chosenMatch, setChosenMatch] = useState(null);
     const [ratio, setRatio] = useState(null);
-    const [changeCounter, setChangeCounter] = useState(0);
+    const [restartUser, setRestartUser] = useState(false);
 
     useEffect(() => {
-        axios.post("http://localhost:9124/get-user-by-secret",null,
+        axios.post("http://localhost:9124/get-user-by-secret", null,
             {
                 params: {
                     secret: userSecret
@@ -24,13 +26,10 @@ function Gambling({data, userSecret}) {
             })
             .then(response => {
                 setUser(response.data.user);
-                if (response.data.success) {
-                    console.log("change")
-                }
-            }).catch(()=>{
+            }).catch(() => {
             toast.error("Server Error");
         })
-    }, [changeCounter]);
+    }, [restartUser]);
 
 
     useEffect(() => {
@@ -43,11 +42,11 @@ function Gambling({data, userSecret}) {
     }, [data]);
 
     const gambleSelected = (match, team) => {
-        if (team === 0) {
+        if (team === DRAW) {
             setRatio((100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2))
-        } else if (team === 1) {
+        } else if (team === TEAM_1) {
             setRatio((100 / match.team1.skillLevel).toFixed(2))
-        } else if (team === 2) {
+        } else if (team === TEAM_2) {
             setRatio((100 / match.team2.skillLevel).toFixed(2))
         }
         setTeamNum(team);
@@ -57,7 +56,7 @@ function Gambling({data, userSecret}) {
 
 
     const sendGamble = () => {
-        axios.post("http://localhost:9124/add-gamble",null,
+        axios.post("http://localhost:9124/add-gamble", null,
             {
                 params: {
                     secret: userSecret,
@@ -70,9 +69,9 @@ function Gambling({data, userSecret}) {
             .then(response => {
                 if (response.data.success) {
                     toast.success("Gamble is successful");
-                    setChangeCounter(changeCounter + 1)
+                    setRestartUser(!restartUser)
                 } else {
-                    toast.error("Error " + response.data.errorCode)
+                    toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
                 setIsGambling(false);
                 setRatio(null);
@@ -90,15 +89,15 @@ function Gambling({data, userSecret}) {
                     isGambling ?
                         <div>
                             <h3>
-                                {teamNum === Constants.DRAW && <div>
+                                {teamNum === DRAW && <div>
                                     draw
                                     - {ratio}
                                 </div>}
-                                {teamNum === Constants.TEAM_1 && <div>
+                                {teamNum === TEAM_1 && <div>
                                     {chosenMatch.team1.name}
                                     - {ratio}
                                 </div>}
-                                {teamNum === Constants.TEAM_2 && <div>
+                                {teamNum === TEAM_2 && <div>
                                     {chosenMatch.team2.name}
                                     - {ratio}
                                 </div>}
@@ -119,7 +118,9 @@ function Gambling({data, userSecret}) {
                             <div className='text'>
                                 Expected Gain {(ratio * gambleSum).toFixed(2)}
                             </div>
-                            <button className='btn' onClick={sendGamble} disabled={gambleSum === Constants.INITIAL_BALANCE || user.balance < gambleSum}>send</button>
+                            <button className='btn' onClick={sendGamble}
+                                    disabled={gambleSum === INITIAL_BALANCE || user.balance < gambleSum}>send
+                            </button>
                             <button className='btn' onClick={() => {
                                 setIsGambling(false);
                                 setRatio(null);
@@ -144,7 +145,7 @@ function Gambling({data, userSecret}) {
                                             return (<tr key={index}>
                                                 <td>
                                                     <button name='team1' className='gambling-btn'
-                                                            onClick={() => gambleSelected(match, Constants.TEAM_1)}>
+                                                            onClick={() => gambleSelected(match, TEAM_1)}>
                                                         <div>
                                                             {match.team1.name}
                                                         </div>
@@ -156,7 +157,7 @@ function Gambling({data, userSecret}) {
 
                                                 <td>
                                                     <button name='draw' className='gambling-btn'
-                                                            onClick={() => gambleSelected(match, Constants.DRAW)}>
+                                                            onClick={() => gambleSelected(match, DRAW)}>
                                                         <div className='bet-ratio'>
                                                             {(100 / (match.team1.skillLevel + match.team2.skillLevel)).toFixed(2)}
                                                         </div>
@@ -164,7 +165,7 @@ function Gambling({data, userSecret}) {
                                                 </td>
                                                 <td>
                                                     <button name='team2' className='gambling-btn'
-                                                            onClick={() => gambleSelected(match, Constants.TEAM_2)}>
+                                                            onClick={() => gambleSelected(match, TEAM_2)}>
                                                         <div>
                                                             {match.team2.name}
                                                         </div>

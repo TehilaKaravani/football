@@ -3,7 +3,8 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
-import Constants from "./Constants";
+import {MIN_PASS_LENGTH} from './constants';
+import { errorMessages } from './errorMessages';
 
 const SignIn = ({userSecret, setUserSecret}) => {
 
@@ -20,14 +21,13 @@ const SignIn = ({userSecret, setUserSecret}) => {
 
             })
             .then(response => {
-                console.log(response.data);
                 if (response.data.success) {
                     const cookies2 = new Cookies(null, {path: '/'})
                     cookies2.set('secret', response.data.user.secret);
                     setUserSecret(response.data.user.secret);
                     toast.success('Login Success');
                 } else {
-                    toast.error("Error " + response.data.errorCode);
+                    toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
             }).catch(() => {
             toast.error("Server Error");
@@ -69,7 +69,7 @@ const SignIn = ({userSecret, setUserSecret}) => {
                             </div>
 
                             <button className='btn' onClick={login}
-                                    disabled={password.length < Constants.MIN_PASS_LENGTH || email.length === 0}>Login
+                                    disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
                             </button>
                         </div>
                 }

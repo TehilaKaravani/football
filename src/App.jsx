@@ -88,7 +88,7 @@ function App() {
                     <Route path={"/sign-up"} element={<SignUp/>}/>
                     <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
                     <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
-                    <Route path={"/dashboard-page"} element={<DashboardPage cycle={dataFromServer}/>}/>
+                    <Route path={"/dashboard-page"} element={<DashboardPage data={dataFromServer}/>}/>
                     <Route path={"/gambling"} element={<Gambling data={dataFromServer} userSecret={userSecret}/>}/>
                     <Route path={"/my-gambling"} element={<PersonalGambling userSecret={userSecret}/>}/>
                     <Route path={"*"} element={<PageNotFound/>}/>

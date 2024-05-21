@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from 'prop-types';
-import Constants from "./Constants";
-
+import {MIN_PASS_LENGTH} from './constants';
+import {errorMessages} from "./ErrorMessages.jsx";
 function Profile({userSecret}) {
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState("");
@@ -42,7 +42,7 @@ function Profile({userSecret}) {
     }
 
     const checkPassword = () => {
-        return (newPassword.length >= Constants.MIN_PASS_LENGTH) && (newPassword === repeatPassword) && (currentPassword !== newPassword);
+        return (newPassword.length >= MIN_PASS_LENGTH) && (newPassword === repeatPassword) && (currentPassword !== newPassword);
 
     }
 
@@ -63,7 +63,7 @@ function Profile({userSecret}) {
                 if (response.data.success) {
                     toast.success("The email has changed");
                 }else {
-                    toast.error("Error " + response.data.errorCode);
+                    toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
             }).catch(()=>{
             toast.error("Server Error");
@@ -86,7 +86,7 @@ function Profile({userSecret}) {
                 if (response.data.success) {
                     toast.success("The username has changed");
                 }else {
-                    toast.error("Error " + response.data.errorCode);
+                    toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
             }).catch(()=>{
                 toast.error("Server Error");
@@ -110,7 +110,7 @@ function Profile({userSecret}) {
                     if (response.data.success) {
                         toast.success("The password has changed");
                     }else {
-                        toast.error("Error " + response.data.errorCode);
+                        toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                     }
                 }).catch(()=>{
                 toast.error("Server Error");

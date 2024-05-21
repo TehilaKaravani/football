@@ -2,9 +2,12 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import PropTypes from "prop-types";
 import Gamble from "./Gamble.jsx";
+import {VscDebugRestart} from "react-icons/vsc";
+import {toast, ToastContainer} from "react-toastify";
 
 function PersonalGambling({userSecret}) {
-    const [gambling, setGambling] = useState([])
+    const [gambling, setGambling] = useState([]);
+    const [updateGambling, setUpdateGambling] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:9124/get-user-gambling",
@@ -15,19 +18,22 @@ function PersonalGambling({userSecret}) {
             })
             .then(response => {
                 setGambling(response.data);
-            }).catch(()=>{
-            console.log("Server Error")
+            }).catch(() => {
+            toast.error("Server Error")
         })
-    });
+    }, [updateGambling]);
 
 
     return (
-        <div className='container'>
+        <main className='container'>
             <h2>My Gambling</h2>
-            {gambling &&
+            {(gambling !== null && gambling.length !== 0) ?
                 <div>
-                    {gambling.map((gamble,index)=> {
-                        return(
+                    <VscDebugRestart onClick={() => {
+                        setUpdateGambling(!updateGambling)
+                    }} className="restart"/>
+                    {gambling.map((gamble, index) => {
+                        return (
                             <div key={index}>
                                 <Gamble gamble={gamble}/>
                             </div>
@@ -35,10 +41,16 @@ function PersonalGambling({userSecret}) {
                     })
                     }
                 </div>
+                :
+                <div>
+                    You haven't gambled yet.
+                </div>
             }
-        </div>
+            <ToastContainer position='top-center'/>
+        </main>
     );
 }
+
 PersonalGambling.propTypes = {
     userSecret: PropTypes.string,
 };

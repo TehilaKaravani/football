@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
-import Constants from "./Constants";
+import {WINNER_POINTS, DRAW_POINTS} from './constants';
 
 function ScoreTable({data}) {
-    const [score, setScore] = useState([])
-    const [matches, setMatches] = useState([])
+    const [score, setScore] = useState([]);
+    const [matches, setMatches] = useState([]);
 
 
     useEffect(() => {
@@ -48,13 +48,13 @@ function ScoreTable({data}) {
                 const teamScore2 = scoreList.find((teamScore) =>{
                     return teamScore.teamName === game.team2.name;
                 })
-                teamScore2.score += Constants.DRAW_POINTS;
-                teamScore1.score += Constants.DRAW_POINTS;
+                teamScore2.score += DRAW_POINTS;
+                teamScore1.score += DRAW_POINTS;
             }else {
                 const teamScore = scoreList.find((teamScore) =>{
                     return winner.name === teamScore.teamName;
                 })
-                teamScore.score += Constants.WINNER_POINTS;
+                teamScore.score += WINNER_POINTS;
             }
         })
 
@@ -91,78 +91,81 @@ function ScoreTable({data}) {
 
 
 
-    return (<div className={'big-container'}>
+    return (<div className={'container'}>
         <h2>Score Table</h2>
-        <table className='table1'>
-            <thead>
-            <tr>
-                <th>
-                    Team1
-                </th>
-                <th>
-                    Team2
-                </th>
-                <th>
-                    Goals1
-                </th>
-                <th>
-                    Goals2
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                matches &&
-                <>
-                    {matches.map((match, index) => {
-                        return (<tr key={index}>
-                            <td>
-                                {match.team1.name}
-                            </td>
-                            <td>
-                                {match.team2.name}
-                            </td>
-                            <td>
-                                {match.goals_T1}
-                            </td>
-                            <td>
-                                {match.goals_T2}
-                            </td>
-                        </tr>)
-                    })}
-                </>
-            }
-            </tbody>
-        </table>
+        <div className='tables'>
+            <table className='table1'>
+                <thead>
+                <tr>
+                    <th>
+                        Team1
+                    </th>
+                    <th>
+                        Team2
+                    </th>
+                    <th>
+                        Goals1
+                    </th>
+                    <th>
+                        Goals2
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    matches &&
+                    <>
+                        {matches.map((match, index) => {
+                            return (<tr key={index}>
+                                <td>
+                                    {match.team1.name}
+                                </td>
+                                <td>
+                                    {match.team2.name}
+                                </td>
+                                <td>
+                                    {match.goals_T1}
+                                </td>
+                                <td>
+                                    {match.goals_T2}
+                                </td>
+                            </tr>)
+                        })}
+                    </>
+                }
+                </tbody>
+            </table>
 
 
-        <table className='table2'>
-            <thead>
-            <tr>
-                <th>
-                    Team
-                </th>
-                <th>
-                    Score
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {score.map((teamScore, index) => {
-                return (<tr key={index}>
-                        <td>
-                            {teamScore.teamName}
-                        </td>
-                        <td>
-                            {teamScore.score}
-                        </td>
-                    </tr>
+            <table className='table2'>
+                <thead>
+                <tr>
+                    <th>
+                        Team
+                    </th>
+                    <th>
+                        Score
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {score.map((teamScore, index) => {
+                    return (<tr key={index}>
+                            <td>
+                                {teamScore.teamName}
+                            </td>
+                            <td>
+                                {teamScore.score}
+                            </td>
+                        </tr>
 
-                )
-            })}
-            </tbody>
+                    )
+                })}
+                </tbody>
 
-        </table>
+            </table>
+        </div>
+
 
 
     </div>);
