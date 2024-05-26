@@ -6,7 +6,6 @@ function ScoreTable({data}) {
     const [score, setScore] = useState([]);
     const [matches, setMatches] = useState([]);
 
-
     useEffect(() => {
         if (data != null) {
             const filterData = data.filter((game) => {

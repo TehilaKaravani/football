@@ -107,7 +107,9 @@ tr, td, th{
 
 .table {
     right: 0;
-    margin: 3rem auto 0 auto;}
+    margin: 3rem auto 0 auto;
+    font-size: 22px;
+}
 .tables{
     display: flex;
     justify-content: center;
@@ -122,6 +124,7 @@ tr, td, th{
     border: 1px solid black;
     margin: 2rem;
     flex: 0 0 auto;
+    font-size: 19px;
 }
 
 .form-input {
