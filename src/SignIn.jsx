@@ -4,21 +4,24 @@ import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
 import {MIN_PASS_LENGTH} from './constants';
-import { errorMessages } from './errorMessages';
+import {errorMessages} from './errorMessages';
+import {useNavigate} from 'react-router-dom';
 
-const SignIn = ({userSecret, setUserSecret}) => {
+
+const SignIn = ({setUserSecret}) => {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+
 
     const login = () => {
-        axios.post("http://localhost:9124/login",null,
+        axios.post("http://localhost:9124/login", null,
             {
-                params:{
+                params: {
                     email: email,
                     password: password
                 }
-
             })
             .then(response => {
                 if (response.data.success) {
@@ -26,6 +29,9 @@ const SignIn = ({userSecret, setUserSecret}) => {
                     cookies2.set('secret', response.data.user.secret);
                     setUserSecret(response.data.user.secret);
                     toast.success('Login Success');
+                    setTimeout(() => {
+                        navigate('/score-table');
+                    }, 5000);
                 } else {
                     toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }
@@ -38,40 +44,35 @@ const SignIn = ({userSecret, setUserSecret}) => {
         <main>
             <div>
                 {
-                    userSecret ?
-                        <div className='container'>
-                            <h2>successfully logged in</h2>
-                        </div>
-                        :
-                        <div className="container">
-                            <h2>Sign in</h2>
-                            <div className='form-section'>
-                                <div>
-                                    email:
-                                </div>
-
-                                <div>
-                                    <input className='form-input' value={email} onChange={(e) => {
-                                        setEmail(e.target.value)
-                                    }}/>
-                                </div>
+                    <div className="container">
+                        <h2>Sign in</h2>
+                        <div className='form-section'>
+                            <div className='text'>
+                                email:
                             </div>
 
-                            <div className='form-section'>
-                                <div>
-                                    password:
-                                </div>
-                                <div>
-                                    <input className='form-input' type='password' value={password} onChange={(e) => {
-                                        setPassword(e.target.value)
-                                    }}/>
-                                </div>
+                            <div>
+                                <input className='form-input' value={email} onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}/>
                             </div>
-
-                            <button className='btn' onClick={login}
-                                    disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
-                            </button>
                         </div>
+
+                        <div className='form-section'>
+                            <div className='text'>
+                                password:
+                            </div>
+                            <div>
+                                <input className='form-input' type='password' value={password} onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}/>
+                            </div>
+                        </div>
+
+                        <button className='btn' onClick={login}
+                                disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
+                        </button>
+                    </div>
                 }
             </div>
             <ToastContainer position='top-center'/>

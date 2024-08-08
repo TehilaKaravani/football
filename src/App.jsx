@@ -84,7 +84,7 @@ function App() {
                 <Routes>
                     <Route path={"/"} element={<HomePage/>}/>
                     <Route path={"/login"}
-                           element={<SignIn userSecret={userSecret} setUserSecret={setUserSecret}/>}/>
+                           element={<SignIn setUserSecret={setUserSecret}/>}/>
                     <Route path={"/sign-up"} element={<SignUp/>}/>
                     <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
                     <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>
