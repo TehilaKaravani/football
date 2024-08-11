@@ -28,9 +28,11 @@ const SignIn = ({setUserSecret}) => {
                     cookies2.set('secret', response.data.user.secret);
                     setUserSecret(response.data.user.secret);
                     toast.success('Login Success');
+                    setEmail("");
+                    setPassword("");
                     setTimeout(() => {
                         navigate('/score-table');
-                    }, 5000);
+                    }, 3000);
                 } else {
                     toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }

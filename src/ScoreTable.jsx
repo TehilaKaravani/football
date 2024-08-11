@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {WINNER_POINTS, DRAW_POINTS} from './constants';
 import GameResult from "./GameResult.jsx";
+import { AiOutlineLoading } from "react-icons/ai";
 
 function ScoreTable({data}) {
     const [score, setScore] = useState([]);
@@ -100,12 +101,11 @@ function ScoreTable({data}) {
             <h2>Results</h2>
             <div className='tables'>
                 <div className="game-results-container">
+                    <h2>Team Standings</h2>
                     {
-
                         (matches.length !== 0) ?
                             <>
                                 <div>
-                                    <h2>Team Standings</h2>
                                     {matches.map((match, index) => {
                                         if (index < gameResultToDisplay) {
                                             return (
@@ -123,18 +123,20 @@ function ScoreTable({data}) {
                                 }
                             </>
                             :
-                            <h2>loading Matches...</h2>
+                            <AiOutlineLoading className='loading'/>
                     }
 
                 </div>
 
                 <div className='score-table'>
-                {
+                    <h2>Match Results</h2>
+                    {
                     loadingScore ?
-                        <h2>loading Score...</h2>
+                        <div>
+                            <AiOutlineLoading className='loading'/>
+                        </div>
                         :
                         <div>
-                            <h2>Match Results</h2>
                             {score.map((teamScore, index) => {
                                 return (
                                     <div key={index} className="team-score">
