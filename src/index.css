@@ -67,9 +67,24 @@ tr, td, th{
     left: 0;
     right: 0;
     margin: 2rem auto;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*text-align: center;*/
+}
+
+.container:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+
+.container2 {
+    max-width: 1400px;
+    background: #ffffff;
+    padding: 1.5rem 2.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 2rem auto;
 }
 
 .container:hover {
@@ -106,30 +121,9 @@ tr, td, th{
     opacity: 0.5;
 }
 
-.table {
-    right: 0;
-    margin: 3rem auto 0 auto;
-    font-size: 22px;
-}
-.tables{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
 
-}
-
-.table1,
-.table2 {
-    display: inline-block;
-    vertical-align: top;
-    border: 1px solid black;
-    margin: 2rem;
-    flex: 0 0 auto;
-    font-size: 19px;
-}
 .input-container {
-    position: relative; /* מאפשר למקם את הסופר בתוך השדה */
-    /*display: inline-block; !* למנוע פריסת השדה והסופר על פני כל רוחב התיבה *!*/
+    position: relative;
 }
 
 .form-input {
@@ -139,8 +133,7 @@ tr, td, th{
     background: #fcfcfd;
     border: 1px solid #a5a8a7;
     font-size: 24px;
-    /*padding-right: 70px; !* מוודא שהטקסט לא יכסה את הסופר *!*/
-    /*box-sizing: border-box; !* לוקח בחשבון את ה-padding בתוך הרוחב הכולל *!*/
+
 }
 .character-counter {
     position: absolute;
@@ -258,6 +251,70 @@ h2{
 }
 .restart:hover{
     transform: rotate(-30deg);
+}
+
+.game-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: #FFCC99;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    font-size: 25px;
+    margin-bottom: 1.25rem;
+}
+.game-results-container {
+    left: 0;
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+    align-items: center;
+}
+.team-names {
+    flex: 1;
+    text-align: left;
+}
+
+.teams-score {
+    flex: 0 0 50px;
+    font-weight: bold;
+}
+.table {
+    /*right: 0;*/
+    margin: 3rem auto 0 auto;
+    font-size: 22px;
+}
+.tables{
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-start;
+}
+
+.score-table {
+    float: right;
+    margin-left: 20px;
+    border-collapse: collapse;
+    margin-right: 5rem;
+}
+.team-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: #CCFFE5;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    font-size: 25px;
+    margin-bottom: 0.5rem;
 }
 
 

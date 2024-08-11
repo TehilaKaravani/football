@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {WINNER_POINTS, DRAW_POINTS} from './constants';
+import GameResult from "./GameResult.jsx";
 
 function ScoreTable({data}) {
     const [score, setScore] = useState([]);
     const [matches, setMatches] = useState([]);
+    const [loadingScore, setLoadingScore] = useState(true);
+    const [gameResultToDisplay, setGameResultToDisplay] = useState(10)
 
     useEffect(() => {
         if (data != null) {
@@ -16,64 +19,67 @@ function ScoreTable({data}) {
     }, [data]);
 
     useEffect(() => {
-        let teams = [];
-        if (data) {
-            data.map((match,index) => {
-                if (index < 4) {
-                    teams.push(match.team1.name);
-                    teams.push(match.team2.name);
+        if (matches.length !== 0) {
+            let teams = [];
+            if (data) {
+                data.map((match, index) => {
+                    if (index < 4) {
+                        teams.push(match.team1.name);
+                        teams.push(match.team2.name);
+                    }
+                })
+            }
+            let scoreList = [];
+            teams.map((team) => {
+                scoreList.push({
+                    teamName: team,
+                    score: 0
+                })
+            })
+
+            matches.map((game) => {
+                let winner = null;
+                if (game.goals_T1 > game.goals_T2) {
+                    winner = game.team1;
+                } else if (game.goals_T1 < game.goals_T2) {
+                    winner = game.team2;
+                }
+                if (winner === null) {
+                    const teamScore1 = scoreList.find((teamScore) => {
+                        return teamScore.teamName === game.team1.name;
+                    })
+                    const teamScore2 = scoreList.find((teamScore) => {
+                        return teamScore.teamName === game.team2.name;
+                    })
+                    teamScore2.score += DRAW_POINTS;
+                    teamScore1.score += DRAW_POINTS;
+                } else {
+                    const teamScore = scoreList.find((teamScore) => {
+                        return winner.name === teamScore.teamName;
+                    })
+                    teamScore.score += WINNER_POINTS;
                 }
             })
+
+
+            const sortedScores = scoreList.sort((teamA, teamB) => {
+                const scoreDifference = teamB.score - teamA.score;
+                if (scoreDifference === 0) {
+                    const goalsDifference = getGoalsByTeam(teamB.teamName) - getGoalsByTeam(teamA.teamName);
+                    if (goalsDifference === 0) {
+                        return teamA.teamName.localeCompare(teamB.teamName);
+                    } else {
+                        return goalsDifference;
+                    }
+                }
+                return scoreDifference;
+            });
+            setScore(sortedScores);
+            setLoadingScore(false);
         }
-        let scoreList = [];
-        teams.map((team)=> {
-            scoreList.push({
-                teamName: team,
-                score: 0
-            })
-        })
-
-        matches.map((game)=>{
-            let winner = null;
-            if (game.goals_T1 > game.goals_T2) {
-                winner = game.team1;
-            }else if (game.goals_T1 < game.goals_T2) {
-                winner = game.team2;
-            }
-            if (winner === null) {
-                const teamScore1 = scoreList.find((teamScore) =>{
-                    return teamScore.teamName === game.team1.name;
-                })
-                const teamScore2 = scoreList.find((teamScore) =>{
-                    return teamScore.teamName === game.team2.name;
-                })
-                teamScore2.score += DRAW_POINTS;
-                teamScore1.score += DRAW_POINTS;
-            }else {
-                const teamScore = scoreList.find((teamScore) =>{
-                    return winner.name === teamScore.teamName;
-                })
-                teamScore.score += WINNER_POINTS;
-            }
-        })
-
-
-        const sortedScores = scoreList.sort((teamA, teamB) => {
-            const scoreDifference = teamB.score - teamA.score;
-            if (scoreDifference === 0) {
-                const goalsDifference = getGoalsByTeam(teamB.teamName) - getGoalsByTeam(teamA.teamName);
-                if (goalsDifference === 0) {
-                    return teamA.teamName.localeCompare(teamB.teamName);
-                }else {
-                    return goalsDifference;
-                }
-            }
-            return scoreDifference;
-        });
-        setScore(sortedScores);
     }, [data]);
 
-    const getGoalsByTeam  = (teamName) => {
+    const getGoalsByTeam = (teamName) => {
         let goals = 0;
         const matchWithTeam = matches.filter((match) => {
             return (match.team1.name === teamName) || (match.team2.name === teamName);
@@ -89,85 +95,59 @@ function ScoreTable({data}) {
     }
 
 
+    return (
+        <div className={'container2'}>
+            <h2>Results</h2>
+            <div className='tables'>
+                <div className="game-results-container">
+                    {
 
-    return (<div className={'container'}>
-        <h2>Score Table</h2>
-        <div className='tables'>
-            <table className='table1'>
-                <thead>
-                <tr>
-                    <th>
-                        Team1
-                    </th>
-                    <th>
-                        Team2
-                    </th>
-                    <th>
-                        Goals1
-                    </th>
-                    <th>
-                        Goals2
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
+                        (matches.length !== 0) ?
+                            <>
+                                <div>
+                                    <h2>Team Standings</h2>
+                                    {matches.map((match, index) => {
+                                        if (index < gameResultToDisplay) {
+                                            return (
+                                                <GameResult key={index} match={match}/>
+                                            )
+                                        }
+                                    })}
+                                </div>
+                                {
+                                    (gameResultToDisplay < matches.length) &&
+                                    <button className='btn'
+                                            onClick={() => setGameResultToDisplay(gameResultToDisplay + 5)}>see all
+                                        results</button>
+
+                                }
+                            </>
+                            :
+                            <h2>loading Matches...</h2>
+                    }
+
+                </div>
+
+                <div className='score-table'>
                 {
-                    matches &&
-                    <>
-                        {matches.map((match, index) => {
-                            return (<tr key={index}>
-                                <td>
-                                    {match.team1.name}
-                                </td>
-                                <td>
-                                    {match.team2.name}
-                                </td>
-                                <td>
-                                    {match.goals_T1}
-                                </td>
-                                <td>
-                                    {match.goals_T2}
-                                </td>
-                            </tr>)
-                        })}
-                    </>
+                    loadingScore ?
+                        <h2>loading Score...</h2>
+                        :
+                        <div>
+                            <h2>Match Results</h2>
+                            {score.map((teamScore, index) => {
+                                return (
+                                    <div key={index} className="team-score">
+                                        <span className="team-name">{teamScore.teamName}</span>
+                                        <span className="team-points">{teamScore.score}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
                 }
-                </tbody>
-            </table>
-
-
-            <table className='table2'>
-                <thead>
-                <tr>
-                    <th>
-                        Team
-                    </th>
-                    <th>
-                        Score
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {score.map((teamScore, index) => {
-                    return (<tr key={index}>
-                            <td>
-                                {teamScore.teamName}
-                            </td>
-                            <td>
-                                {teamScore.score}
-                            </td>
-                        </tr>
-
-                    )
-                })}
-                </tbody>
-
-            </table>
-        </div>
-
-
-
-    </div>);
+                </div>
+            </div>
+        </div>);
 }
 
 ScoreTable.propTypes = {

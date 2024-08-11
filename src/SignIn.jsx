@@ -7,7 +7,6 @@ import {MIN_PASS_LENGTH} from './constants';
 import {errorMessages} from './errorMessages';
 import {useNavigate} from 'react-router-dom';
 
-
 const SignIn = ({setUserSecret}) => {
 
     const [password, setPassword] = useState("");
@@ -42,39 +41,35 @@ const SignIn = ({setUserSecret}) => {
 
     return (
         <main>
-            <div>
-                {
-                    <div className="container">
-                        <h2>Sign in</h2>
-                        <div className='form-section'>
-                            <div className='text'>
-                                email:
-                            </div>
-
-                            <div>
-                                <input className='form-input' value={email} onChange={(e) => {
-                                    setEmail(e.target.value)
-                                }}/>
-                            </div>
+                <div className="container">
+                    <h2>Sign in</h2>
+                    <div className='form-section'>
+                        <div className='text'>
+                            email:
                         </div>
 
-                        <div className='form-section'>
-                            <div className='text'>
-                                password:
-                            </div>
-                            <div>
-                                <input className='form-input' type='password' value={password} onChange={(e) => {
-                                    setPassword(e.target.value)
-                                }}/>
-                            </div>
+                        <div>
+                            <input className='form-input' value={email} onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}/>
                         </div>
-
-                        <button className='btn' onClick={login}
-                                disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
-                        </button>
                     </div>
-                }
-            </div>
+
+                    <div className='form-section'>
+                        <div className='text'>
+                            password:
+                        </div>
+                        <div>
+                            <input className='form-input' type='password' value={password} onChange={(e) => {
+                                setPassword(e.target.value)
+                            }}/>
+                        </div>
+                    </div>
+
+                    <button className='btn' onClick={login}
+                            disabled={password.length < MIN_PASS_LENGTH || email.length === 0}>Login
+                    </button>
+                </div>
             <ToastContainer position='top-center'/>
         </main>
 
