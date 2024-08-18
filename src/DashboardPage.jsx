@@ -40,7 +40,8 @@ const DashboardPage = ({data}) => {
                             ))}
                             </tbody>
                         </table>
-                        00:{(data.remainingTime < 10) ? "0" : ""}{data.remainingTime}</div>
+                            <div className={"timer"}>00:{(data.remainingTime < 10) ? "0" : ""}{data.remainingTime}</div>
+                        </div>
                         :
                         <div className='text'>
                             <div>

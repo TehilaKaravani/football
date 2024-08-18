@@ -281,11 +281,11 @@ h2{
 }
 
 .teams-score {
-    flex: 0 0 50px;
+    flex: 0 0 60px;
     font-weight: bold;
 }
 .table {
-    /*right: 0;*/
+    width: 100%;
     margin: 3rem auto 0 auto;
     font-size: 22px;
 }
@@ -326,6 +326,18 @@ h2{
     100% { transform: rotate(360deg); }
 }
 
-
+.timer {
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #d35400;
+    text-align: center;
+    margin: 2rem auto;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    background-color: #eaeaea;
+    width: fit-content; /* מתאים את רוחב האלמנט לתוכן */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
 
