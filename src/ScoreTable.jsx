@@ -12,7 +12,7 @@ function ScoreTable({data}) {
 
     useEffect(() => {
         if (data != null) {
-            const filterData = data.filter((game) => {
+            const filterData = data.match.filter((game) => {
                 return (game.isLive != null) && (!game.isLive);
             })
             setMatches(filterData);
@@ -23,7 +23,7 @@ function ScoreTable({data}) {
         if (matches.length !== 0) {
             let teams = [];
             if (data) {
-                data.map((match, index) => {
+                data.match.map((match, index) => {
                     if (index < 4) {
                         teams.push(match.team1.name);
                         teams.push(match.team2.name);
