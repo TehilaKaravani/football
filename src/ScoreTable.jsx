@@ -117,7 +117,7 @@ function ScoreTable({data}) {
                                 {
                                     (gameResultToDisplay < matches.length) &&
                                     <button className='btn'
-                                            onClick={() => setGameResultToDisplay(gameResultToDisplay + 5)}>see all
+                                            onClick={() => setGameResultToDisplay(gameResultToDisplay + 5)}>see more
                                         results</button>
 
                                 }

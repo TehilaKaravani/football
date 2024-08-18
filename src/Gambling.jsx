@@ -34,7 +34,7 @@ function Gambling({data, userSecret}) {
 
     useEffect(() => {
         if (data != null) {
-            const filterData = data.filter((game) => {
+            const filterData = data.match.filter((game) => {
                 return (game.isLive == null);
             })
             setFutureMatches(filterData);
