@@ -6,10 +6,11 @@ const DashboardPage = ({data}) => {
 
     useEffect(() => {
         if (data != null) {
-            const filterData = data.filter((game) => {
+            const filterData = data.match.filter((game) => {
                 return game.isLive
             })
             setMatchInLive(filterData);
+            console.log(data);
         }
     }, [data]);
 
@@ -18,6 +19,7 @@ const DashboardPage = ({data}) => {
             <h2>Steams Live Games</h2>
                 {
                     (matchInLive !=null && matchInLive.length !== 0) ?
+                        <div>
                         <table className='table'>
                             <thead>
                             <tr>
@@ -38,6 +40,7 @@ const DashboardPage = ({data}) => {
                             ))}
                             </tbody>
                         </table>
+                        00:{(data.remainingTime < 10) ? "0" : ""}{data.remainingTime}</div>
                         :
                         <div className='text'>
                             <div>
@@ -50,6 +53,9 @@ const DashboardPage = ({data}) => {
     );
 };
 DashboardPage.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
+    data: PropTypes.shape({
+        match: PropTypes.arrayOf(PropTypes.object),
+        remainingTime: PropTypes.number,
+    }),
 };
 export default DashboardPage;
