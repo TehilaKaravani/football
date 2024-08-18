@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
-import {WINNER_POINTS, DRAW_POINTS} from './constants';
-import GameResult from "./GameResult.jsx";
+import {WINNER_POINTS, DRAW_POINTS} from '../utils/Constants.jsx';
 import { AiOutlineLoading } from "react-icons/ai";
 
 function ScoreTable({data}) {
@@ -40,9 +39,9 @@ function ScoreTable({data}) {
 
             matches.map((game) => {
                 let winner = null;
-                if (game.goals_T1 > game.goals_T2) {
+                if (game.goalsT1 > game.goalsT2) {
                     winner = game.team1;
-                } else if (game.goals_T1 < game.goals_T2) {
+                } else if (game.goalsT1 < game.goalsT2) {
                     winner = game.team2;
                 }
                 if (winner === null) {
@@ -87,9 +86,9 @@ function ScoreTable({data}) {
         })
         matchWithTeam.map((match) => {
             if (match.team1.name === teamName) {
-                goals += match.goals_T1;
+                goals += match.goalsT1;
             } else {
-                goals += match.goals_T2;
+                goals += match.goalsT2;
             }
         })
         return goals;
@@ -109,7 +108,10 @@ function ScoreTable({data}) {
                                     {matches.map((match, index) => {
                                         if (index < gameResultToDisplay) {
                                             return (
-                                                <GameResult key={index} match={match}/>
+                                                <div key={index} className="game-result">
+                                                    <span className="team-names">{match.team1.name} - {match.team2.name}</span>
+                                                    <span className="teams-score">{match.goalsT1} - {match.goalsT2}</span>
+                                                </div>
                                             )
                                         }
                                     })}

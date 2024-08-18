@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from 'prop-types';
-import {MIN_PASS_LENGTH} from './constants';
-import {errorMessages} from "./ErrorMessages.jsx";
+import {MIN_PASS_LENGTH} from '../utils/Constants.jsx';
+import {errorMessages} from "../utils/ErrorMessages.jsx";
 function Profile({userSecret}) {
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState("");

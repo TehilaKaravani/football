@@ -1,17 +1,16 @@
 import {useEffect, useState} from 'react'
-import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, NavLink, Route, Routes} from "react-router-dom";
 
-import SignIn from "./SignIn.jsx";
-import SignUp from "./SignUp.jsx";
-import HomePage from "./HomePage.jsx";
-import PageNotFound from "./PageNotFound.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import PageNotFound from "./pages/PageNotFound.jsx";
 import Cookies from "universal-cookie";
-import ScoreTable from "./ScoreTable.jsx";
+import ScoreTable from "./pages/ScoreTable.jsx";
 import axios from "axios";
-import Profile from "./Profile.jsx";
-import DashboardPage from "./DashboardPage.jsx";
-import Gambling from "./Gambling.jsx";
-import PersonalGambling from "./PersonalGambling.jsx";
+import Profile from "./pages/Profile.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
+import Gambling from "./pages/Gambling.jsx";
+import PersonalGambling from "./pages/PersonalGambling.jsx";
 
 function App() {
     const [userSecret, setUserSecret] = useState(null);
@@ -55,7 +54,6 @@ function App() {
             <BrowserRouter>
 
                 <div className='links'>
-                    <NavLink activeclassname={"active"} className={"main-link"} to={"/"}>Home</NavLink>
                     {
                         userSecret ?
                             <>
@@ -77,14 +75,13 @@ function App() {
                     }
                     <NavLink activeclassname={"active"} className={"main-link"} to={"/score-table"}>Score
                         Table</NavLink>
-                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Streams Live Games</NavLink>
+                    <NavLink activeclassname={"active"} className={"main-link"} to={"/dashboard-page"}>Streams Live
+                        Games</NavLink>
                 </div>
 
 
                 <Routes>
-                    <Route path={"/"} element={<HomePage/>}/>
-                    <Route path={"/login"}
-                           element={<SignIn setUserSecret={setUserSecret}/>}/>
+                    <Route path="/" element={userSecret ? <Navigate to="/score-table" /> : <SignIn setUserSecret={setUserSecret} />} />                    <Route path={"/login"} element={<SignIn setUserSecret={setUserSecret}/>}/>
                     <Route path={"/sign-up"} element={<SignUp/>}/>
                     <Route path={"/profile"} element={<Profile userSecret={userSecret}/>}/>
                     <Route path={"/score-table"} element={<ScoreTable data={dataFromServer}/>}/>

@@ -3,8 +3,8 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {ToastContainer, toast} from 'react-toastify';
 import PropTypes from "prop-types";
-import {MIN_PASS_LENGTH} from './constants';
-import {errorMessages} from './errorMessages';
+import {MIN_PASS_LENGTH} from '../utils/Constants.jsx';
+import {errorMessages} from '../utils/ErrorMessages.jsx';
 import {useNavigate} from 'react-router-dom';
 
 const SignIn = ({setUserSecret}) => {
@@ -32,7 +32,7 @@ const SignIn = ({setUserSecret}) => {
                     setPassword("");
                     setTimeout(() => {
                         navigate('/score-table');
-                    }, 3000);
+                    }, 2000);
                 } else {
                     toast.error(errorMessages[response.data.errorCode] || "An unknown error occurred");
                 }

@@ -49,6 +49,13 @@ tr, td, th{
     width: 100px;
     height: 30px;
 }
+tr:nth-child(even) {background-color: #f2f2f2;}
+tr:hover {background-color: #eaedff;}
+
+th {
+    background-color: #173d4b;
+    color: white;
+}
 
 .logout {
     position: fixed;
@@ -287,7 +294,8 @@ h2{
 .table {
     width: 100%;
     margin: 3rem auto 0 auto;
-    font-size: 22px;
+    font-size: 20px;
+    border-spacing: 0 10px;
 }
 .tables{
     justify-content: space-between;

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from "axios";
 import PropTypes from "prop-types";
-import Gamble from "./Gamble.jsx";
+import Gamble from "../Gamble.jsx";
 import {VscDebugRestart} from "react-icons/vsc";
 import {toast, ToastContainer} from "react-toastify";
 

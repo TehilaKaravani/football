@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { TEAM_1, TEAM_2, DRAW} from './constants';
+import { TEAM_1, TEAM_2, DRAW} from './utils/Constants.jsx';
 function Gamble({gamble}) {
     return (
         <div className={(gamble.isCorrect === null) ? 'gray-gamble-container text' : (gamble.isCorrect === true ? 'green-gamble-container text' : 'red-gamble-container text')}>

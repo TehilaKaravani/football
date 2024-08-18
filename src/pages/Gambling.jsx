@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import axios from "axios";
 import {ToastContainer, toast} from 'react-toastify';
-import {TEAM_1, TEAM_2, DRAW, INITIAL_BALANCE} from './constants';
-import {errorMessages} from "./ErrorMessages.jsx";
+import {TEAM_1, TEAM_2, DRAW, INITIAL_BALANCE} from '../utils/Constants.jsx';
+import {errorMessages} from "../utils/ErrorMessages.jsx";
 
 
 function Gambling({data, userSecret}) {
