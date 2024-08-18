@@ -42,7 +42,7 @@ function PersonalGambling({userSecret}) {
                     }
                 </div>
                 :
-                <div>
+                <div className='text'>
                     You haven't gambled yet.
                 </div>
             }
